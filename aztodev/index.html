@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>AZTODEV — לינק שעובד</title>
+<meta name="description" content="חברת תוכנה שבנויה סביב כלל אחד: אף אחד לא אומר «מוכן» — רק השער אומר.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;600;700&family=Frank+Ruhl+Libre:wght@500;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+  :root {
+    --paper:  #EDF0EA;
+    --card:   #F7F9F4;
+    --ink:    #171B18;
+    --muted:  #565F58;
+    --faint:  #838D85;
+    --rule:   #D3D9CD;
+    --seal:   #15614B;
+    --seal-bg:#DEEBE3;
+    --open:   #8A5624;
+    --open-bg:#F2E7DA;
+    color-scheme: light dark;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper:  #0E110F;
+      --card:   #161A17;
+      --ink:    #E6EBE5;
+      --muted:  #9AA59D;
+      --faint:  #6E7A72;
+      --rule:   #262D28;
+      --seal:   #4FC29E;
+      --seal-bg:#113026;
+      --open:   #D9954F;
+      --open-bg:#2C1F12;
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper:  #0E110F;
+    --card:   #161A17;
+    --ink:    #E6EBE5;
+    --muted:  #9AA59D;
+    --faint:  #6E7A72;
+    --rule:   #262D28;
+    --seal:   #4FC29E;
+    --seal-bg:#113026;
+    --open:   #D9954F;
+    --open-bg:#2C1F12;
+  }
+
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: "Assistant", "Segoe UI", system-ui, sans-serif;
+    font-size: 17px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .sheet {
+    max-width: 660px;
+    margin: 0 auto;
+    padding-inline: 20px;
+    padding-block: 0 72px;
+  }
+
+  /* masthead: a document header, not a nav bar */
+  .masthead {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+    padding-block: 22px 18px;
+    border-bottom: 2px solid var(--ink);
+  }
+  .wordmark {
+    font-family: "Frank Ruhl Libre", Georgia, serif;
+    font-weight: 700;
+    font-size: 21px;
+    letter-spacing: .04em;
+  }
+  .filed {
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 12px;
+    color: var(--faint);
+    letter-spacing: .02em;
+    direction: ltr;
+  }
+
+  /* the claim */
+  .claim {
+    padding-block: 52px 46px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .claim h1 {
+    font-family: "Frank Ruhl Libre", Georgia, serif;
+    font-weight: 700;
+    font-size: clamp(32px, 8.5vw, 50px);
+    line-height: 1.16;
+    letter-spacing: -.015em;
+    margin: 0 0 22px;
+    text-wrap: balance;
+  }
+  .claim h1 em {
+    font-style: normal;
+    color: var(--seal);
+  }
+  .claim p {
+    margin: 0;
+    font-size: 19px;
+    color: var(--muted);
+    max-width: 46ch;
+  }
+
+  section { padding-block: 40px; border-bottom: 1px solid var(--rule); }
+
+  .label {
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 11.5px;
+    font-weight: 500;
+    letter-spacing: .14em;
+    color: var(--faint);
+    margin: 0 0 14px;
+    text-transform: uppercase;
+    direction: ltr;
+    text-align: right;
+  }
+  h2 {
+    font-family: "Frank Ruhl Libre", Georgia, serif;
+    font-weight: 700;
+    font-size: clamp(23px, 5vw, 29px);
+    line-height: 1.28;
+    margin: 0 0 16px;
+    text-wrap: balance;
+  }
+  p { margin: 0 0 15px; max-width: 58ch; }
+  p:last-child { margin-bottom: 0; }
+  .muted { color: var(--muted); }
+
+  /* the incident, set as a quoted record */
+  .record {
+    background: var(--card);
+    border-inline-start: 3px solid var(--open);
+    border-radius: 3px;
+    padding: 18px 20px;
+    margin: 22px 0 0;
+  }
+  .record .when {
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 12px;
+    color: var(--open);
+    letter-spacing: .03em;
+    display: block;
+    margin-bottom: 8px;
+    direction: ltr;
+    text-align: right;
+  }
+  .record p { font-size: 16px; margin-bottom: 10px; }
+  .record p:last-child { margin-bottom: 0; }
+
+  /* the four checks: numbered because it IS a sequence */
+  ol.checks { list-style: none; margin: 24px 0 0; padding: 0; }
+  ol.checks li {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 16px;
+    padding-block: 15px;
+    border-top: 1px solid var(--rule);
+    align-items: start;
+  }
+  ol.checks li:last-child { border-bottom: 1px solid var(--rule); }
+  .n {
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--faint);
+    padding-top: 3px;
+    font-variant-numeric: tabular-nums;
+  }
+  .check-t { font-weight: 700; display: block; }
+  .check-d { color: var(--muted); font-size: 15.5px; display: block; margin-top: 2px; }
+  ol.checks li.keystone .check-t { color: var(--seal); }
+
+  /* status: what is true, plainly */
+  .status { display: flex; flex-direction: column; gap: 10px; margin-top: 22px; }
+  .row {
+    display: flex;
+    gap: 12px;
+    align-items: baseline;
+    padding: 12px 15px;
+    border-radius: 4px;
+    background: var(--card);
+  }
+  .tag {
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: .06em;
+    padding: 3px 8px;
+    border-radius: 3px;
+    white-space: nowrap;
+    direction: ltr;
+  }
+  .tag.ok   { background: var(--seal-bg); color: var(--seal); }
+  .tag.open { background: var(--open-bg); color: var(--open); }
+  .row span:last-child { font-size: 16px; }
+
+  /* the seal */
+  .seal {
+    margin-top: 44px;
+    padding: 20px;
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    background: var(--card);
+  }
+  .seal-head {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    font-weight: 700;
+    color: var(--seal);
+    margin-bottom: 10px;
+  }
+  .seal-head svg { width: 17px; height: 17px; flex: none; }
+  .seal p { font-size: 15.5px; color: var(--muted); margin: 0; }
+  .stamp {
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 12.5px;
+    color: var(--ink);
+    direction: ltr;
+    text-align: right;
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px dashed var(--rule);
+    line-height: 1.9;
+    word-break: break-all;
+  }
+  .stamp b { color: var(--faint); font-weight: 500; }
+
+  footer {
+    padding-block: 30px 0;
+    font-size: 14.5px;
+    color: var(--faint);
+  }
+  footer p { max-width: none; }
+
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+</head>
+<body>
+<div class="sheet">
+
+  <header class="masthead">
+    <div class="wordmark">AZTODEV</div>
+    <div class="filed">3efd033 · 16.9.2026, 11:24</div>
+  </header>
+
+  <div class="claim">
+    <h1>אתה אומר. אנחנו בונים.<br>ואתה מקבל <em>לינק שעובד</em>.</h1>
+    <p>חברת תוכנה שעובדת עם צוות סוכנים. הכלל היחיד שהיא בנויה סביבו הוא
+       שאף אחד מהם לא רשאי להגיד שסיים.</p>
+  </div>
+
+  <section>
+    <p class="label">why</p>
+    <h2>«מוכן» היא המילה הכי זולה בתוכנה</h2>
+    <p>מודל יכול לכתוב «התיקון מוכן» בביטחון מלא, בלי שקרה כלום. הוא לא משקר —
+       הוא פשוט לא יודע. וכשכולם אומרים את זה בבת אחת, אי אפשר להבחין בין
+       עבודה שנגמרה לבין משפט שנוסח יפה.</p>
+    <p>זה לא רעיון תיאורטי. זה קרה כאן.</p>
+
+    <div class="record">
+      <span class="when">2026-09-11 · תיק אירוע</span>
+      <p>באג באפליקציית חשבון לילדים. נכתב תיקון. הוא נבנה. הוא מעולם לא פורסם.</p>
+      <p>כל סוכן בשרשרת דיווח «התיקון מוכן», בזמן שהאתר החי עדיין הגיש את
+         הגרסה הקורסת. שלושה סבבי תיקון עד שמישהו הסתכל על הבייטים.</p>
+    </div>
+  </section>
+
+  <section>
+    <p class="label">the gate</p>
+    <h2>אז הוצאנו את ההחלטה מהידיים שלהם</h2>
+    <p>סוכן לא קובע שסיים. קובץ קוד אחד קובע, והוא בודק ארבעה דברים
+       שאי אפשר לדבר סביבם:</p>
+
+    <ol class="checks">
+      <li><span class="n">01</span><span>
+        <span class="check-t">הבנייה מסתיימת בהצלחה</span>
+        <span class="check-d">exit code 0. לא «כמעט», לא «עם אזהרות».</span>
+      </span></li>
+      <li><span class="n">02</span><span>
+        <span class="check-t">הטסטים עוברים</span>
+        <span class="check-d">כולם. נכשל אחד — המשימה נכשלה.</span>
+      </span></li>
+      <li><span class="n">03</span><span>
+        <span class="check-t">הכתובת החיה עונה</span>
+        <span class="check-d">בקשה אמיתית דרך האינטרנט, לא בדיקה מקומית.</span>
+      </span></li>
+      <li class="keystone"><span class="n">04</span><span>
+        <span class="check-t">מה שהאתר מגיש הוא מה שנבנה</span>
+        <span class="check-d">sha256 של הבייטים שירדו מהחוט, מול sha256 של
+          הבייטים שיצאו מהבנייה. זו הבדיקה שתופסת את 2026-09-11 — ואף מודל
+          לא יכול לזייף אותה.</span>
+      </span></li>
+    </ol>
+  </section>
+
+  <section>
+    <p class="label">status</p>
+    <h2>מה נכון כרגע</h2>
+    <p class="muted">אותו כלל חל גם על הדף הזה. כל שורה כאן היא מצב אמיתי,
+       כולל מה שעוד לא קרה.</p>
+
+    <div class="status">
+      <div class="row"><span class="tag ok">בנוי</span><span>השער, הפנקס, שכבת הבנייה — עם טסטים</span></div>
+      <div class="row"><span class="tag ok">רץ</span><span>הצוות עונה בטלגרם, מסביב לשעון</span></div>
+      <div class="row"><span class="tag open">פתוח</span><span>הדף הזה הוא המוצר הראשון שעובר את הצינור במלואו</span></div>
+      <div class="row"><span class="tag open">פתוח</span><span>אין עדיין לקוחות. זו לא ענווה — זו פשוט העובדה</span></div>
+    </div>
+  </section>
+
+  <div class="seal">
+    <div class="seal-head">
+      <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
+        <circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.4"/>
+        <path d="M4.6 8.2l2.3 2.3 4.5-4.8" stroke="currentColor" stroke-width="1.7"
+              stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      הדף הזה עבר את השער
+    </div>
+    <p>הוא לא עלה כי מישהו אמר שהוא מוכן. הוא עלה כי ה-sha256 של מה שאתה
+       קורא עכשיו זהה ל-sha256 של מה שיצא מהבנייה. אחרת לא היית רואה אותו.</p>
+    <div class="stamp">
+      <b>commit</b> 3efd033<br>
+      <b>built</b> 16.9.2026, 11:24
+    </div>
+  </div>
+
+  <footer>
+    <p>AZTODEV · טבריה</p>
+  </footer>
+
+</div>
+</body>
+</html>
