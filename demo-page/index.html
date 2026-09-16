@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>נובה טרייל — הדגמה 🌱</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0f172a;
+    --card: #ffffff;
+    --primary: #10b981;
+    --primary-dark: #059669;
+    --accent: #f59e0b;
+    --text: #1e293b;
+    --muted: #64748b;
+    --radius: 20px;
+    --shadow: 0 8px 32px rgba(16, 185, 129, 0.18);
+  }
+
+  body {
+    font-family: "Segoe UI", Tahoma, Arial, sans-serif;
+    background: linear-gradient(135deg, #0f172a 0%, #134e4a 55%, #0f172a 100%);
+    color: var(--text);
+    min-height: 100vh;
+  }
+
+  .wrap {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 32px 16px 64px;
+  }
+
+  header {
+    text-align: center;
+    color: #ecfdf5;
+    margin-bottom: 28px;
+  }
+
+  header .badge {
+    display: inline-block;
+    background: rgba(245, 158, 11, 0.15);
+    color: var(--accent);
+    border: 1px solid rgba(245, 158, 11, 0.4);
+    border-radius: 999px;
+    padding: 4px 14px;
+    font-size: 0.8rem;
+    margin-bottom: 14px;
+  }
+
+  header h1 {
+    font-size: clamp(1.8rem, 6vw, 2.6rem);
+    margin-bottom: 8px;
+  }
+
+  header p {
+    color: #a7f3d0;
+    font-size: 1.05rem;
+    max-width: 480px;
+    margin: 0 auto;
+  }
+
+  .card {
+    background: var(--card);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: clamp(20px, 5vw, 32px);
+    margin-bottom: 20px;
+  }
+
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    text-align: center;
+  }
+
+  .stats .num {
+    font-size: clamp(1.4rem, 5vw, 1.9rem);
+    font-weight: 700;
+    color: var(--primary-dark);
+  }
+
+  .stats .label {
+    color: var(--muted);
+    font-size: 0.8rem;
+  }
+
+  .features {
+    display: grid;
+    gap: 14px;
+    margin-top: 4px;
+  }
+
+  .feature {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    padding: 14px;
+    border-radius: 14px;
+    background: #f0fdf4;
+    border: 1px solid #d1fae5;
+  }
+
+  .feature .icon {
+    font-size: 1.6rem;
+    line-height: 1;
+  }
+
+  .feature h3 {
+    font-size: 1.02rem;
+    margin-bottom: 3px;
+    color: var(--primary-dark);
+  }
+
+  .feature p {
+    color: var(--muted);
+    font-size: 0.9rem;
+  }
+
+  .quote {
+    font-style: italic;
+    color: var(--text);
+    border-right: 3px solid var(--primary);
+    padding-right: 14px;
+    margin: 10px 0;
+  }
+
+  .quote .who {
+    display: block;
+    margin-top: 8px;
+    font-style: normal;
+    font-weight: 600;
+    color: var(--muted);
+    font-size: 0.85rem;
+  }
+
+  .cta {
+    display: block;
+    text-align: center;
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    color: #fff;
+    font-weight: 700;
+    font-size: 1.05rem;
+    padding: 14px;
+    border-radius: 14px;
+    border: none;
+    width: 100%;
+    cursor: pointer;
+  }
+
+  .cta:active { transform: scale(0.98); }
+
+  footer {
+    text-align: center;
+    color: #94a3b8;
+    font-size: 0.8rem;
+    margin-top: 24px;
+  }
+
+  #toast {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: #059669;
+    color: #fff;
+    padding: 12px 22px;
+    border-radius: 999px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+    opacity: 0;
+    transition: opacity 0.25s, transform 0.25s;
+    font-size: 0.92rem;
+    white-space: nowrap;
+  }
+
+  #toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <span class="badge">דף הדגמה · תוכן מדומה</span>
+      <h1>🌱 נובה טרייל</h1>
+      <p>אפליקציית מסלולי טבע קהילתית — מוצאים מסלול, מסמנים "הלכתי", והקהילה מדרגת.</p>
+    </header>
+
+    <div class="card">
+      <div class="stats">
+        <div>
+          <div class="num">1,842</div>
+          <div class="label">מסלולים</div>
+        </div>
+        <div>
+          <div class="num">6,310</div>
+          <div class="label">מטיילים</div>
+        </div>
+        <div>
+          <div class="num">4.8★</div>
+          <div class="label">דירוג ממוצע</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="features">
+        <div class="feature">
+          <div class="icon">🗺️</div>
+          <div>
+            <h3>מפה חיה</h3>
+            <p>מסלול מותאם לזמן, קושי ומרחק מהבית — מתעדכן לפי מזג אוויר.</p>
+          </div>
+        </div>
+        <div class="feature">
+          <div class="icon">📸</div>
+          <div>
+            <h3>יומן טיולים</h3>
+            <p>תמונה אחת בסוף כל מסלול, אוטומטית נכנסת לאלבום השנתי שלך.</p>
+          </div>
+        </div>
+        <div class="feature">
+          <div class="icon">🏆</div>
+          <div>
+            <h3>אתגרי קהילה</h3>
+            <p>אתגר חודשי משפחתי — נובה טרייל עוקבת, אתם רק הולכים.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <p class="quote">
+        "עשינו את מסלול נחל עמוד עם הילדים בעזרת ההמלצה — קלעה בול לגיל שלהם."
+        <span class="who">— משתמשת מדומה, טבריה</span>
+      </p>
+      <p class="quote">
+        "סוף סוף אפליקציה שלא צריך אינטרנט באמצע המסלול."
+        <span class="who">— משתמש מדומה, כרמל</span>
+      </p>
+    </div>
+
+    <div class="card">
+      <button class="cta" id="ctaBtn">🥾 מצא לי מסלול להיום</button>
+    </div>
+
+    <footer>
+      דף זה נבנה להדגמה בלבד — כל התוכן, השמות והמספרים מומצאים.
+    </footer>
+  </div>
+
+  <div id="toast"></div>
+
+  <script>
+    const trails = [
+      "נחל עמוד — 2.5 ק״מ, קל, לכל המשפחה",
+      "הר ארבל — 4 ק״מ, בינוני, נוף לכינרת",
+      "יער בירייה — 3 ק״מ, קל, מוצלל",
+      "נחל תבור — 6 ק״מ, מאתגר, מים בחורף"
+    ];
+    const btn = document.getElementById("ctaBtn");
+    const toast = document.getElementById("toast");
+    btn.addEventListener("click", () => {
+      const pick = trails[Math.floor(Math.random() * trails.length)];
+      toast.textContent = "היום מומלץ: " + pick;
+      toast.classList.add("show");
+      setTimeout(() => toast.classList.remove("show"), 2600);
+    });
+  </script>
+</body>
+</html>
