@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Deep Beats — DJ ליאם רידם | דיג'יי לאירועים</title>
+<meta name="description" content="Deep Beats עם DJ ליאם רידם — דיג'יי מקצועי לחתונות, בר/בת מצווה, אירועי חברה וימי הולדת. השאירו פרטים או דברו בוואטסאפ.">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0b0710;
+    --bg-alt: #120b1c;
+    --card: #1a1026;
+    --card-border: #2c1f3f;
+    --primary: #a855f7;
+    --primary-dark: #7c3aed;
+    --accent: #22d3ee;
+    --whatsapp: #25d366;
+    --text: #f3eefc;
+    --muted: #b6a9cc;
+    --radius: 18px;
+    --shadow: 0 12px 40px rgba(168, 85, 247, 0.25);
+    --max-w: 1120px;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: "Segoe UI", "Heebo", Tahoma, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  img { max-width: 100%; display: block; }
+
+  a { color: inherit; }
+
+  .wrap {
+    width: 100%;
+    max-width: var(--max-w);
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  section { padding: clamp(48px, 8vw, 96px) 0; }
+
+  h1, h2, h3 { line-height: 1.25; }
+
+  .eyebrow {
+    color: var(--accent);
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    display: block;
+  }
+
+  .section-title {
+    font-size: clamp(1.6rem, 4vw, 2.4rem);
+    margin-bottom: 12px;
+    background: linear-gradient(90deg, #fff, var(--accent));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: inline-block;
+  }
+
+  .section-sub {
+    color: var(--muted);
+    max-width: 640px;
+    margin-bottom: 40px;
+    font-size: 1.05rem;
+  }
+
+  /* ===== Header / Nav ===== */
+  header.site {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(11, 7, 16, 0.85);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--card-border);
+  }
+
+  .nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 0;
+  }
+
+  .logo {
+    font-weight: 800;
+    font-size: 1.2rem;
+    letter-spacing: 0.02em;
+  }
+
+  .logo span { color: var(--accent); }
+
+  .nav-links {
+    display: none;
+    gap: 24px;
+    font-size: 0.95rem;
+    color: var(--muted);
+  }
+
+  .nav-links a:hover { color: var(--text); }
+
+  @media (min-width: 760px) {
+    .nav-links { display: flex; }
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    border: none;
+    cursor: pointer;
+    border-radius: 999px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    padding: 12px 24px;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    text-decoration: none;
+  }
+
+  .btn:hover { transform: translateY(-2px); }
+
+  .btn:focus-visible {
+    outline: 3px solid var(--accent);
+    outline-offset: 2px;
+  }
+
+  .btn-primary {
+    background: linear-gradient(90deg, var(--primary-dark), var(--primary));
+    color: #fff;
+    box-shadow: var(--shadow);
+  }
+
+  .btn-whatsapp {
+    background: var(--whatsapp);
+    color: #06210f;
+  }
+
+  .btn-ghost {
+    background: transparent;
+    border: 1px solid var(--card-border);
+    color: var(--text);
+  }
+
+  .btn-sm { padding: 9px 18px; font-size: 0.85rem; }
+
+  /* ===== Hero ===== */
+  .hero {
+    position: relative;
+    min-height: 88vh;
+    display: flex;
+    align-items: center;
+    padding-top: 40px;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background: url("./images/hero.jpg") center 25% / cover no-repeat;
+    z-index: 0;
+  }
+
+  .hero-bg::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(11,7,16,0.55) 0%, rgba(11,7,16,0.75) 55%, var(--bg) 100%);
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 1;
+    max-width: 680px;
+  }
+
+  .hero-content h1 {
+    font-size: clamp(2.2rem, 6vw, 3.6rem);
+    margin-bottom: 18px;
+  }
+
+  .hero-content h1 .hl {
+    background: linear-gradient(90deg, var(--accent), var(--primary));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .hero-content p {
+    color: var(--muted);
+    font-size: 1.1rem;
+    max-width: 520px;
+    margin-bottom: 30px;
+  }
+
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+  }
+
+  .hero-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    margin-top: 44px;
+    color: var(--muted);
+    font-size: 0.9rem;
+  }
+
+  .hero-badges strong {
+    display: block;
+    color: var(--text);
+    font-size: 1.4rem;
+  }
+
+  /* ===== About ===== */
+  .about-grid {
+    display: grid;
+    gap: 40px;
+    align-items: center;
+    grid-template-columns: 1fr;
+  }
+
+  @media (min-width: 860px) {
+    .about-grid { grid-template-columns: 0.8fr 1.2fr; }
+  }
+
+  .about-photo {
+    border-radius: var(--radius);
+    overflow: hidden;
+    border: 1px solid var(--card-border);
+    box-shadow: var(--shadow);
+  }
+
+  .about-photo img { aspect-ratio: 3/4; object-fit: cover; }
+
+  .about-text p { color: var(--muted); margin-bottom: 16px; }
+
+  .about-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-top: 28px;
+  }
+
+  .about-stats .stat {
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: 14px;
+    padding: 16px 10px;
+    text-align: center;
+  }
+
+  .about-stats .stat b {
+    display: block;
+    font-size: 1.5rem;
+    color: var(--accent);
+  }
+
+  .about-stats .stat span {
+    font-size: 0.8rem;
+    color: var(--muted);
+  }
+
+  /* ===== Services ===== */
+  .services-grid {
+    display: grid;
+    gap: 22px;
+    grid-template-columns: 1fr;
+  }
+
+  @media (min-width: 640px) {
+    .services-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (min-width: 1000px) {
+    .services-grid { grid-template-columns: repeat(4, 1fr); }
+  }
+
+  .service-card {
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius);
+    padding: 26px 22px;
+    transition: transform 0.2s ease, border-color 0.2s ease;
+  }
+
+  .service-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--primary);
+  }
+
+  .service-card .icon {
+    font-size: 2rem;
+    margin-bottom: 14px;
+    display: block;
+  }
+
+  .service-card h3 { margin-bottom: 8px; font-size: 1.15rem; }
+  .service-card p { color: var(--muted); font-size: 0.92rem; }
+
+  /* ===== Gallery ===== */
+  .gallery-grid {
+    display: grid;
+    gap: 18px;
+    grid-template-columns: 1fr;
+  }
+
+  @media (min-width: 700px) {
+    .gallery-grid { grid-template-columns: repeat(3, 1fr); }
+  }
+
+  .gallery-item {
+    border-radius: var(--radius);
+    overflow: hidden;
+    border: 1px solid var(--card-border);
+    position: relative;
+  }
+
+  .gallery-item img {
+    width: 100%;
+    height: 100%;
+    aspect-ratio: 4/5;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+  }
+
+  .gallery-item:hover img { transform: scale(1.06); }
+
+  .gallery-caption {
+    position: absolute;
+    inset-inline: 0;
+    bottom: 0;
+    padding: 16px;
+    background: linear-gradient(0deg, rgba(0,0,0,0.75), transparent);
+    font-weight: 700;
+    font-size: 0.95rem;
+  }
+
+  /* ===== Testimonials ===== */
+  .testi-grid {
+    display: grid;
+    gap: 20px;
+    grid-template-columns: 1fr;
+  }
+
+  @media (min-width: 760px) {
+    .testi-grid { grid-template-columns: repeat(3, 1fr); }
+  }
+
+  .testi-card {
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius);
+    padding: 24px;
+  }
+
+  .testi-stars { color: #facc15; margin-bottom: 12px; letter-spacing: 2px; }
+  .testi-card p { color: var(--muted); margin-bottom: 16px; font-style: italic; }
+  .testi-name { font-weight: 700; }
+  .testi-role { color: var(--muted); font-size: 0.85rem; }
+
+  /* ===== Contact form ===== */
+  .contact-grid {
+    display: grid;
+    gap: 40px;
+    grid-template-columns: 1fr;
+  }
+
+  @media (min-width: 900px) {
+    .contact-grid { grid-template-columns: 1fr 1fr; align-items: start; }
+  }
+
+  .contact-info {
+    background: linear-gradient(160deg, var(--card), var(--bg-alt));
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius);
+    padding: 30px;
+  }
+
+  .contact-info h3 { margin-bottom: 14px; }
+  .contact-info ul { list-style: none; margin: 18px 0; color: var(--muted); }
+  .contact-info li { margin-bottom: 10px; display: flex; gap: 10px; align-items: flex-start; }
+
+  form.card {
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius);
+    padding: clamp(22px, 4vw, 32px);
+  }
+
+  .field { margin-bottom: 18px; }
+
+  .field label {
+    display: block;
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: var(--text);
+  }
+
+  .field .required { color: #f87171; }
+
+  .field input,
+  .field select,
+  .field textarea {
+    width: 100%;
+    background: var(--bg);
+    border: 1px solid var(--card-border);
+    border-radius: 10px;
+    padding: 12px 14px;
+    color: var(--text);
+    font-size: 1rem;
+    font-family: inherit;
+  }
+
+  .field input:focus,
+  .field select:focus,
+  .field textarea:focus {
+    outline: 2px solid var(--primary);
+    outline-offset: 1px;
+    border-color: var(--primary);
+  }
+
+  .field textarea { resize: vertical; min-height: 110px; }
+
+  .field-error {
+    color: #f87171;
+    font-size: 0.82rem;
+    margin-top: 6px;
+    display: none;
+  }
+
+  .field.invalid input,
+  .field.invalid select,
+  .field.invalid textarea {
+    border-color: #f87171;
+  }
+
+  .field.invalid .field-error { display: block; }
+
+  .form-status {
+    margin-top: 14px;
+    font-size: 0.9rem;
+    color: var(--accent);
+    display: none;
+  }
+
+  .form-status.show { display: block; }
+
+  /* ===== Footer ===== */
+  footer.site {
+    border-top: 1px solid var(--card-border);
+    padding: 30px 0;
+    color: var(--muted);
+    font-size: 0.9rem;
+    text-align: center;
+  }
+
+  footer.site a { color: var(--accent); text-decoration: none; }
+
+  /* ===== Floating WhatsApp ===== */
+  .fab-whatsapp {
+    position: fixed;
+    bottom: 22px;
+    left: 22px;
+    z-index: 60;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: var(--whatsapp);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 8px 24px rgba(37, 211, 102, 0.5);
+    text-decoration: none;
+    animation: pulse 2.4s infinite;
+  }
+
+  .fab-whatsapp svg { width: 30px; height: 30px; }
+
+  @keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.55); }
+    70% { box-shadow: 0 0 0 14px rgba(37, 211, 102, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .fab-whatsapp { animation: none; }
+    html { scroll-behavior: auto; }
+  }
+
+  .sr-only {
+    position: absolute;
+    width: 1px; height: 1px;
+    padding: 0; margin: -1px;
+    overflow: hidden;
+    clip: rect(0,0,0,0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  .skip-link {
+    position: absolute;
+    right: -999px;
+    top: 0;
+    background: var(--primary);
+    color: #fff;
+    padding: 10px 16px;
+    z-index: 100;
+    border-radius: 0 0 8px 8px;
+  }
+
+  .skip-link:focus {
+    right: 0;
+  }
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#main">דלגו לתוכן הראשי</a>
+
+<header class="site">
+  <div class="wrap nav">
+    <div class="logo">Deep Beats <span>| ליאם רידם</span></div>
+    <nav class="nav-links" aria-label="ניווט ראשי">
+      <a href="#about">עליי</a>
+      <a href="#services">שירותים</a>
+      <a href="#gallery">גלריה</a>
+      <a href="#testimonials">המלצות</a>
+      <a href="#contact">יצירת קשר</a>
+    </nav>
+    <a class="btn btn-primary btn-sm" href="#contact">קבלו הצעת מחיר</a>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- ===== Hero ===== -->
+  <section class="hero">
+    <div class="hero-bg" role="img" aria-label="דיג'יי מנגן בחתונה, קהל רוקד באולם מואר"></div>
+    <div class="wrap hero-content">
+      <span class="eyebrow">DJ לאירועים · Deep Beats</span>
+      <h1>האירוע שלכם, <span class="hl">הסאונד</span> שלא נשכח</h1>
+      <p>ליאם רידם מביא הפקת סאונד ותאורה מקצועית לחתונות, בר/בת מצווה, אירועי חברה וימי הולדת — מהריקוד הראשון ועד השיר האחרון.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#contact">בואו נדבר על האירוע</a>
+        <a class="btn btn-whatsapp" id="hero-whatsapp" href="#" target="_blank" rel="noopener">
+          שלחו הודעה בוואטסאפ
+        </a>
+      </div>
+      <div class="hero-badges">
+        <div><strong>+300</strong> אירועים</div>
+        <div><strong>9</strong> שנות ניסיון</div>
+        <div><strong>5.0★</strong> דירוג ממוצע</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== About ===== -->
+  <section id="about">
+    <div class="wrap about-grid">
+      <div class="about-photo">
+        <img src="./images/portrait.jpg" alt="ליאם רידם, DJ של Deep Beats, בסטודיו עם קונסולת Pioneer" loading="lazy">
+      </div>
+      <div class="about-text">
+        <span class="eyebrow">עליי</span>
+        <h2 class="section-title">מי זה ליאם רידם</h2>
+        <p>מעל תשע שנים אני מפיק חוויות מוזיקליות לאירועים פרטיים ועסקיים — מרחבי הבית ועד אולמות גדולים. הגישה שלי פשוטה: לקרוא את הקהל, לבנות פלייליסט חי שמתקדם איתו, ולהחזיק ציוד סאונד ותאורה ברמה מקצועית שלא מתפשר.</p>
+        <p>כל אירוע מתחיל בשיחת תיאום אישית כדי להבין את הסגנון, השירים המיוחדים והרגעים שחייבים לצאת מושלמים — ומשם אני דואג לכל השאר.</p>
+        <div class="about-stats">
+          <div class="stat"><b>300+</b><span>אירועים</span></div>
+          <div class="stat"><b>9</b><span>שנות ניסיון</span></div>
+          <div class="stat"><b>100%</b><span>הפקה עצמית</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Services ===== -->
+  <section id="services" style="background:var(--bg-alt);">
+    <div class="wrap">
+      <span class="eyebrow">שירותים</span>
+      <h2 class="section-title">DJ לכל סוג אירוע</h2>
+      <p class="section-sub">חבילות מותאמות אישית — סאונד, תאורה ואפקטים, בהתאמה לגודל ולאופי האירוע.</p>
+      <div class="services-grid">
+        <div class="service-card">
+          <span class="icon" aria-hidden="true">💍</span>
+          <h3>חתונות</h3>
+          <p>מהחופה ועד רחבת הריקודים — ליווי מלא כולל תזמון עם הצלם והמפיק.</p>
+        </div>
+        <div class="service-card">
+          <span class="icon" aria-hidden="true">🎉</span>
+          <h3>בר/בת מצווה</h3>
+          <p>אנרגיה גבוהה, אינטראקציה עם הקהל הצעיר ואפקטים שמדליקים את החדר.</p>
+        </div>
+        <div class="service-card">
+          <span class="icon" aria-hidden="true">🏢</span>
+          <h3>אירועי חברה</h3>
+          <p>סאונד ברמה מקצועית לכנסים, ערבי גיבוש וחגיגות סוף שנה.</p>
+        </div>
+        <div class="service-card">
+          <span class="icon" aria-hidden="true">🎂</span>
+          <h3>ימי הולדת</h3>
+          <p>מהיום הולדת הראשון ועד העגול המשמעותי — פלייליסט שמתאים בדיוק לחוגג.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Gallery ===== -->
+  <section id="gallery">
+    <div class="wrap">
+      <span class="eyebrow">גלריה</span>
+      <h2 class="section-title">מהשטח</h2>
+      <p class="section-sub">רגעים מאירועים אמיתיים — כי התמונה שווה יותר מכל תיאור.</p>
+      <div class="gallery-grid">
+        <div class="gallery-item">
+          <img src="./images/hero.jpg" alt="רחבת ריקודים באירוע חתונה עם תאורה צבעונית" loading="lazy">
+          <div class="gallery-caption">חתונה — רחבת ריקודים</div>
+        </div>
+        <div class="gallery-item">
+          <img src="./images/bar-mitzvah.jpg" alt="מסיבת בר מצווה עם דיג'יי ותאורה" loading="lazy">
+          <div class="gallery-caption">בר מצווה</div>
+        </div>
+        <div class="gallery-item">
+          <img src="./images/corporate.jpg" alt="אירוע חברה עם הפקת סאונד מקצועית" loading="lazy">
+          <div class="gallery-caption">אירוע חברה</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Testimonials ===== -->
+  <section id="testimonials" style="background:var(--bg-alt);">
+    <div class="wrap">
+      <span class="eyebrow">המלצות</span>
+      <h2 class="section-title">מה אומרים עלינו</h2>
+      <p class="section-sub">תוכן להמחשה — יוחלף בהמלצות אמיתיות של לקוחות.</p>
+      <div class="testi-grid">
+        <div class="testi-card">
+          <div class="testi-stars" aria-label="דירוג 5 מתוך 5 כוכבים">★★★★★</div>
+          <p>"ליאם קרא את הקהל מושלם, הרחבה לא התרוקנה כל הערב. ממליצים בחום לכל זוג שרוצה חתונה בלתי נשכחת."</p>
+          <div class="testi-name">מיכל ואיתי כהן</div>
+          <div class="testi-role">חתונה, יולי 2026</div>
+        </div>
+        <div class="testi-card">
+          <div class="testi-stars" aria-label="דירוג 5 מתוך 5 כוכבים">★★★★★</div>
+          <p>"בר המצווה של הבן שלנו הפכה למסיבה שכל החברים שלו עדיין מדברים עליה. תאורה, סאונד, הכל ברמה אחרת."</p>
+          <div class="testi-name">דורון לוי</div>
+          <div class="testi-role">בר מצווה, מאי 2026</div>
+        </div>
+        <div class="testi-card">
+          <div class="testi-stars" aria-label="דירוג 5 מתוך 5 כוכבים">★★★★★</div>
+          <p>"הזמנו את Deep Beats לערב גיבוש חברה ובחרנו נכון. מקצועי, גמיש ובדיוק בקצב שהתאים לצוות שלנו."</p>
+          <div class="testi-name">נועה שרון, מנהלת HR</div>
+          <div class="testi-role">אירוע חברה, מרץ 2026</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Contact ===== -->
+  <section id="contact">
+    <div class="wrap contact-grid">
+      <div class="contact-info">
+        <span class="eyebrow">יצירת קשר</span>
+        <h2 class="section-title" style="font-size:1.8rem;">בואו נתכנן את האירוע</h2>
+        <p style="color:var(--muted);">מלאו את הפרטים ונחזור אליכם עם הצעה מותאמת, או דברו איתנו ישירות בוואטסאפ.</p>
+        <ul>
+          <li>📱 <span>וואטסאפ: מענה מהיר לכל שאלה</span></li>
+          <li>✉️ <span>אימייל: לפרטים מלאים ותיאום פגישה</span></li>
+          <li>⏱️ <span>זמן מענה ממוצע: עד 24 שעות</span></li>
+        </ul>
+        <a class="btn btn-whatsapp" id="info-whatsapp" href="#" target="_blank" rel="noopener">שלחו הודעה בוואטסאפ</a>
+      </div>
+
+      <form class="card" id="lead-form" novalidate>
+        <div class="field" id="field-name">
+          <label for="name">שם מלא <span class="required">*</span></label>
+          <input type="text" id="name" name="name" autocomplete="name" required>
+          <span class="field-error">נא למלא שם מלא</span>
+        </div>
+
+        <div class="field" id="field-phone">
+          <label for="phone">טלפון <span class="required">*</span></label>
+          <input type="tel" id="phone" name="phone" autocomplete="tel" inputmode="tel" placeholder="050-1234567" required>
+          <span class="field-error">נא למלא מספר טלפון תקין</span>
+        </div>
+
+        <div class="field" id="field-event-type">
+          <label for="event-type">סוג אירוע <span class="required">*</span></label>
+          <select id="event-type" name="event-type" required>
+            <option value="" disabled selected>בחרו סוג אירוע</option>
+            <option value="חתונה">חתונה</option>
+            <option value="בר/בת מצווה">בר/בת מצווה</option>
+            <option value="אירוע חברה">אירוע חברה</option>
+            <option value="יום הולדת">יום הולדת</option>
+            <option value="אחר">אחר</option>
+          </select>
+          <span class="field-error">נא לבחור סוג אירוע</span>
+        </div>
+
+        <div class="field" id="field-message">
+          <label for="message">ספרו לנו עוד</label>
+          <textarea id="message" name="message" placeholder="תאריך משוער, מספר אורחים, סגנון מוזיקלי..."></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary" style="width:100%; justify-content:center;">שלחו פרטים במייל</button>
+        <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <p>Deep Beats — DJ ליאם רידם © 2026. כל הזכויות שמורות.</p>
+    <p>עמוד דמו לצורכי הדגמה בלבד.</p>
+  </div>
+</footer>
+
+<a class="fab-whatsapp" id="fab-whatsapp" href="#" target="_blank" rel="noopener" aria-label="פתחו שיחת וואטסאפ">
+  <svg viewBox="0 0 32 32" fill="#06210f" aria-hidden="true">
+    <path d="M16 3C9.1 3 3.5 8.6 3.5 15.5c0 2.4.7 4.7 1.9 6.7L3 29l7-1.9c1.9 1.1 4 1.6 6 1.6 6.9 0 12.5-5.6 12.5-12.5S22.9 3 16 3zm0 22.7c-1.9 0-3.7-.5-5.3-1.5l-.4-.2-4.2 1.1 1.1-4.1-.2-.4a10.1 10.1 0 0 1-1.6-5.4c0-5.6 4.6-10.2 10.2-10.2 5.6 0 10.2 4.6 10.2 10.2S21.6 25.7 16 25.7zm5.6-7.6c-.3-.2-1.8-.9-2-1-.3-.1-.5-.2-.7.2-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.2-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.2-.2.2-.3.3-.5.1-.2 0-.4 0-.6 0-.2-.7-1.7-1-2.3-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.4 0 1.4 1 2.8 1.2 3 .1.2 2 3 4.7 4.3.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.8-.7 2-1.4.3-.7.3-1.3.2-1.4-.1-.2-.3-.2-.6-.4z"/>
+  </svg>
+</a>
+
+<script>
+  // TODO: placeholder — replace with the real destination email before going live
+  const LEAD_DESTINATION_EMAIL = "REPLACE_WITH_REAL_EMAIL@example.com";
+
+  // TODO: placeholder — replace with the real WhatsApp number (international format, no +) before going live
+  const WHATSAPP_NUMBER = "972500000000";
+
+  const WHATSAPP_MESSAGE = "היי ליאם, ראיתי את דף Deep Beats ורציתי לשאול לגבי DJ לאירוע שלי";
+  const whatsappUrl = "https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(WHATSAPP_MESSAGE);
+
+  document.querySelectorAll("#hero-whatsapp, #info-whatsapp, #fab-whatsapp").forEach(function (el) {
+    el.setAttribute("href", whatsappUrl);
+  });
+
+  const form = document.getElementById("lead-form");
+  const status = document.getElementById("form-status");
+
+  function setInvalid(fieldId, invalid) {
+    document.getElementById(fieldId).classList.toggle("invalid", invalid);
+  }
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    const name = document.getElementById("name").value.trim();
+    const phone = document.getElementById("phone").value.trim();
+    const eventType = document.getElementById("event-type").value;
+    const message = document.getElementById("message").value.trim();
+
+    const phoneValid = /^[0-9+\-\s()]{7,}$/.test(phone);
+
+    let valid = true;
+    if (!name) { setInvalid("field-name", true); valid = false; } else { setInvalid("field-name", false); }
+    if (!phoneValid) { setInvalid("field-phone", true); valid = false; } else { setInvalid("field-phone", false); }
+    if (!eventType) { setInvalid("field-event-type", true); valid = false; } else { setInvalid("field-event-type", false); }
+
+    if (!valid) {
+      status.textContent = "נא לתקן את השדות המסומנים.";
+      status.classList.add("show");
+      return;
+    }
+
+    const subject = "פנייה חדשה מדף Deep Beats — " + eventType;
+    const body =
+      "שם: " + name + "\n" +
+      "טלפון: " + phone + "\n" +
+      "סוג אירוע: " + eventType + "\n" +
+      "הודעה: " + (message || "-");
+
+    const mailtoUrl =
+      "mailto:" + LEAD_DESTINATION_EMAIL +
+      "?subject=" + encodeURIComponent(subject) +
+      "&body=" + encodeURIComponent(body);
+
+    window.location.href = mailtoUrl;
+
+    status.textContent = "נפתח לכם אימייל עם הפרטים שמילאתם — רק לשלוח.";
+    status.classList.add("show");
+  });
+</script>
+
+</body>
+</html>
