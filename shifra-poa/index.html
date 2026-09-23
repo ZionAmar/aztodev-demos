@@ -233,6 +233,42 @@
   }
   .painter-card p{ color:var(--ink-soft); }
 
+  /* ---------- real studio photos ---------- */
+  .studio{
+    background:var(--paper-deep);
+    padding-block:var(--space-4);
+  }
+  .studio-grid{
+    display:grid;
+    grid-template-columns:1fr;
+    gap:var(--space-2);
+  }
+  @media(min-width:760px){
+    .studio-grid{ grid-template-columns:repeat(3,1fr); }
+  }
+  .studio-tile{
+    position:relative;
+    border-radius:var(--radius-l);
+    overflow:hidden;
+    box-shadow:var(--shadow-card);
+    border:1px solid rgba(34,24,18,.08);
+    background:var(--paper);
+  }
+  .studio-tile img{
+    width:100%;
+    height:100%;
+    aspect-ratio:4/5;
+    object-fit:cover;
+  }
+  .studio-cap{
+    padding:.9em 1.1em 1em;
+    font-size:.9rem;
+    color:var(--ink-soft);
+    text-align:center;
+    border-top:1px solid rgba(34,24,18,.06);
+  }
+  .studio-cap strong{ color:var(--burgundy-deep); font-family:'Frank Ruhl Libre', serif; }
+
   /* ---------- gallery ---------- */
   .gallery{ padding-block:var(--space-4); }
   .gallery-grid{
@@ -465,6 +501,30 @@
       </article>
 
     </div>
+  </div>
+</section>
+
+<section class="studio">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow">מהסטודיו האמיתי</p>
+      <h2>שיפרה ופועה, ברגע אמיתי</h2>
+    </div>
+    <div class="studio-grid">
+      <div class="studio-tile">
+        <img src="assets/shifra-poa-real.jpg" alt="שיפרה ופועה יושבות ליד שולחן העבודה עם קופסת הצבעים שלהן" loading="lazy">
+        <p class="studio-cap"><strong>הרגע האמיתי</strong><br>באמצע עבודה, בסטודיו שלהן בבית</p>
+      </div>
+      <div class="studio-tile">
+        <img src="assets/variation-royal-portrait.jpg" alt="ציור בהשראת שיפרה ופועה, בסגנון דיוקן מלכותי בגוני זהב וארגמן" loading="lazy">
+        <p class="studio-cap"><strong>בעיני המכחול</strong><br>דיוקן בהשראתן, בסגנון גלריית המלך</p>
+      </div>
+      <div class="studio-tile">
+        <img src="assets/variation-gallery-scene.jpg" alt="ציור בהשראת שיפרה ופועה בסטודיו שלהן, בסגנון מאוייר בגוני כחול וזהב" loading="lazy">
+        <p class="studio-cap"><strong>הסטודיו המלכותי</strong><br>אותו חדר, בעיניים של אגדה</p>
+      </div>
+    </div>
+    <p class="gallery-note">התמונה הראשונה היא תמונה אמיתית שלהן; השתיים הבאות הן יצירות AI בהשראתה.</p>
   </div>
 </section>
 
