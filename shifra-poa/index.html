@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>שיפרה ופועה — ציירות המלך</title>
-<meta name="description" content="שיפרה ופועה, ציירות המלך — אמנות ציור בהזמנה אישית, ביד ובנשמה. צרו קשר בוואטסאפ או במייל.">
+<meta name="description" content="שיפרה ופועה, ציירות המלך — שתי ילדות שמציירות בכל הלב. בואו לראות עוד מהיצירות שלהן, ולכתוב לנו בוואטסאפ או במייל.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Suez+One&family=Frank+Ruhl+Libre:ital,wght@0,400;0,500;0,700;1,400&family=Heebo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -114,7 +114,11 @@
     background:
       radial-gradient(60% 55% at 78% 18%, rgba(233,192,106,.20), transparent 60%),
       radial-gradient(70% 60% at 15% 85%, rgba(109,31,42,.55), transparent 65%),
-      linear-gradient(160deg, var(--navy) 0%, var(--navy-deep) 60%, #0a0f19 100%);
+      linear-gradient(160deg, rgba(20,31,51,.90) 0%, rgba(12,21,34,.94) 60%, rgba(10,15,25,.97) 100%),
+      url("assets/shifra-poa-hero-crop.jpg");
+    background-size: auto, auto, auto, cover;
+    background-position: center, center, center, center;
+    background-repeat: no-repeat;
     color:var(--paper);
     padding-block: calc(var(--space-4) + 1rem) var(--space-4);
     isolation:isolate;
@@ -199,6 +203,22 @@
   .section-head{ text-align:center; margin-bottom:var(--space-3); }
   .section-head h2{ font-size:clamp(1.9rem,1.6rem + 1.2vw,2.7rem); color:var(--navy-deep); margin-top:.25em; }
 
+  .painter-photo-wrap{
+    display:flex; flex-direction:column; align-items:center;
+    margin-bottom:var(--space-3);
+  }
+  .painter-portrait{
+    width:min(320px, 78vw);
+    border-radius:var(--radius-m);
+    box-shadow:var(--shadow-card);
+  }
+  .painter-photo-cap{
+    margin-top:var(--space-1);
+    font-family:'Frank Ruhl Libre', serif;
+    font-style:italic;
+    color:var(--ink-soft);
+    text-align:center;
+  }
   .painter-grid{
     display:grid;
     gap:var(--space-3);
@@ -215,10 +235,6 @@
     text-align:center;
     border:1px solid rgba(34,24,18,.06);
   }
-  .painter-portrait{
-    width:min(220px, 64vw);
-    margin-bottom:var(--space-2);
-  }
   .painter-card h3{
     font-size:clamp(1.7rem,1.5rem + .6vw,2.1rem);
     color:var(--burgundy-deep);
@@ -232,42 +248,6 @@
     margin-bottom:1em;
   }
   .painter-card p{ color:var(--ink-soft); }
-
-  /* ---------- real studio photos ---------- */
-  .studio{
-    background:var(--paper-deep);
-    padding-block:var(--space-4);
-  }
-  .studio-grid{
-    display:grid;
-    grid-template-columns:1fr;
-    gap:var(--space-2);
-  }
-  @media(min-width:760px){
-    .studio-grid{ grid-template-columns:repeat(3,1fr); }
-  }
-  .studio-tile{
-    position:relative;
-    border-radius:var(--radius-l);
-    overflow:hidden;
-    box-shadow:var(--shadow-card);
-    border:1px solid rgba(34,24,18,.08);
-    background:var(--paper);
-  }
-  .studio-tile img{
-    width:100%;
-    height:100%;
-    aspect-ratio:4/5;
-    object-fit:cover;
-  }
-  .studio-cap{
-    padding:.9em 1.1em 1em;
-    font-size:.9rem;
-    color:var(--ink-soft);
-    text-align:center;
-    border-top:1px solid rgba(34,24,18,.06);
-  }
-  .studio-cap strong{ color:var(--burgundy-deep); font-family:'Frank Ruhl Libre', serif; }
 
   /* ---------- gallery ---------- */
   .gallery{ padding-block:var(--space-4); }
@@ -397,13 +377,13 @@
         <circle cx="48" cy="18" r="2.4" fill="currentColor"/>
         <path d="M10 46 H54" stroke="currentColor" stroke-width="2"/>
       </svg>
-      <p class="eyebrow">אמנות ביד, בסבלנות ובצבע</p>
+      <p class="eyebrow">צבע, דמיון וכל הלב</p>
       <h1 class="hero-title">שיפרה ופועה<br>ציירות המלך</h1>
-      <p class="hero-sub">שתי אמניות, מכחול אחד של הדר — יצירות ציור בהזמנה אישית לבית ולעסק, שמביאות לחלל נוכחות של פעם.</p>
+      <p class="hero-sub">שתי ילדות קטנות שאוהבות לצייר — כל יצירה שלהן מלאה בצבע, בדמיון ובהמון אהבה. קוראים להן "ציירות המלך", וזה כינוי חמוד, לא תפקיד רשמי.</p>
       <div class="hero-ctas">
         <a class="btn btn-primary" href="https://wa.me/972549774827?text=%D7%A9%D7%9C%D7%95%D7%9D%2C%20%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%A9%D7%9E%D7%95%D7%A2%20%D7%A2%D7%95%D7%93%20%D7%A2%D7%9C%20%D7%94%D7%99%D7%A6%D7%99%D7%A8%D7%95%D7%AA%20%D7%A9%D7%9C%20%D7%A9%D7%99%D7%A4%D7%A8%D7%94%20%D7%95%D7%A4%D7%95%D7%A2%D7%94" target="_blank" rel="noopener">
           <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2c-5.5 0-9.96 4.46-9.96 9.96 0 1.76.46 3.44 1.32 4.94L2 22l5.24-1.37a9.9 9.9 0 0 0 4.8 1.22h.01c5.5 0 9.96-4.46 9.96-9.96C22 6.46 17.55 2 12.04 2Zm5.84 14.15c-.25.7-1.44 1.34-1.98 1.42-.5.08-1.14.11-1.84-.12-.42-.13-.97-.31-1.67-.6-2.93-1.27-4.84-4.2-4.99-4.4-.15-.2-1.19-1.58-1.19-3.01 0-1.43.75-2.13 1.02-2.42.27-.29.58-.36.78-.36.2 0 .4 0 .57.01.18.01.43-.07.67.51.25.6.85 2.08.92 2.23.07.15.12.33.02.53-.1.2-.15.32-.3.49-.15.17-.31.38-.44.51-.15.15-.3.31-.13.6.17.3.77 1.27 1.65 2.06 1.14 1.02 2.1 1.33 2.4 1.48.3.15.47.13.65-.08.18-.2.76-.88.96-1.19.2-.3.4-.25.67-.15.27.1 1.73.82 2.03.97.3.15.5.22.57.35.07.13.07.75-.18 1.45Z"/></svg>
-          וואטסאפ עכשיו
+          לכתוב לנו בוואטסאפ
         </a>
         <a class="btn btn-ghost" href="#gallery">לצפייה ביצירות</a>
       </div>
@@ -418,10 +398,10 @@
 
 <section class="intro">
   <div class="wrap intro-grid">
-    <p class="intro-quote">״כל יצירה נבנית שכבה על שכבה, עד שהצבע מפסיק להיות צבע — והופך לרגע.״</p>
+    <p class="intro-quote">״כל דף שמתחיל לבן, נגמר מלא צבע — וזה כל הקסם.״</p>
     <div class="intro-body">
-      <p>שיפרה ופועה הן שתי אמניות שבחרו בעבודת היד כדרך חיים. הן עובדות זו לצד זו שנים רבות, כל אחת עם קול משלה על הבד, ויחד יצרו שפה חזותית שמוכרת מיד — עשירה, מדויקת, ונטולת קיצורי דרך.</p>
-      <p>כל יצירה נולדת בהזמנה אישית: שיחה על החלל, על האור בבית, ועל התחושה שרוצים להשאיר בו. משם, המכחול עושה את השאר — בסבלנות, שכבה על שכבה, עד שהתוצאה מרגישה כאילו הייתה שם תמיד.</p>
+      <p>שיפרה ופועה הן שתי ילדות שאוהבות לצייר יותר מכל דבר אחר. הן יושבות ליד השולחן, מוציאות טושים וצבעים, ומתחילות ליצור — בלי חשבון, רק כי זה כיף.</p>
+      <p>בבית קוראים להן "ציירות המלך", כינוי חמוד שנולד מתוך אהבה, לא תפקיד רשמי. כל דף שהן מציירות הוא עולם קטן משלהן, וזה מה שהופך אותו למיוחד.</p>
     </div>
   </div>
 </section>
@@ -430,109 +410,35 @@
   <div class="wrap">
     <div class="section-head">
       <p class="eyebrow">מי אנחנו</p>
-      <h2>שתי אמניות, בית אחד</h2>
+      <h2>שתי ילדות, המון צבע</h2>
+    </div>
+    <div class="painter-photo-wrap">
+      <img class="painter-portrait" src="assets/shifra-poa-framed.jpg" alt="שיפרה ופועה מציירות יחד על השולחן, עם טושים וצבעים">
+      <p class="painter-photo-cap">שיפרה ופועה, באמצע יצירה</p>
     </div>
     <div class="painter-grid">
 
       <article class="painter-card">
-        <svg class="painter-portrait" viewBox="0 0 220 260" aria-hidden="true">
-          <defs>
-            <linearGradient id="frameGold1" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0" stop-color="#e9c06a"/>
-              <stop offset="1" stop-color="#9c7530"/>
-            </linearGradient>
-            <linearGradient id="skinBurgundy" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0" stop-color="#8a2b38"/>
-              <stop offset="1" stop-color="#4c141c"/>
-            </linearGradient>
-            <radialGradient id="bgBurgundy" cx="50%" cy="35%" r="65%">
-              <stop offset="0" stop-color="#f3e3c2"/>
-              <stop offset="1" stop-color="#e7d3a1"/>
-            </radialGradient>
-          </defs>
-          <ellipse cx="110" cy="120" rx="96" ry="112" fill="url(#bgBurgundy)"/>
-          <ellipse cx="110" cy="120" rx="96" ry="112" fill="none" stroke="url(#frameGold1)" stroke-width="6"/>
-          <ellipse cx="110" cy="120" rx="84" ry="100" fill="none" stroke="#c39a49" stroke-width="1.5" stroke-opacity=".6"/>
-          <path d="M60 175 C60 120 78 96 110 96 C142 96 160 120 160 175 Z" fill="url(#skinBurgundy)"/>
-          <path d="M78 108 C78 82 96 66 110 66 C124 66 142 82 142 108 C142 128 132 140 110 148 C88 140 78 128 78 108 Z" fill="#e2b98a"/>
-          <path d="M78 104 C74 80 90 60 110 58 C132 58 148 80 144 106 C144 96 134 82 110 80 C88 82 80 94 78 104 Z" fill="#2c1a12"/>
-          <path d="M70 118 C64 150 66 178 70 196 L58 200 C50 170 52 132 70 108 Z" fill="url(#frameGold1)"/>
-          <path d="M150 118 C156 150 154 178 150 196 L162 200 C170 170 168 132 150 108 Z" fill="url(#frameGold1)"/>
-          <circle cx="96" cy="104" r="3" fill="#3a241a"/>
-          <circle cx="124" cy="104" r="3" fill="#3a241a"/>
-          <path d="M98 122 Q110 128 122 122" stroke="#6e1f2a" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-        </svg>
         <h3>שיפרה</h3>
-        <p class="painter-role">גוונים עמוקים · קומפוזיציה נועזת</p>
-        <p>שיפרה מתמחה בעבודות צבע עשירות, בשכבות אינטנסיביות ובקומפוזיציות דרמטיות שמעניקות לחלל תחושת נוכחות מלכותית. הצבע אצלה הוא כמעט חומר פיסולי — עבה, נוכח, בלתי נשכח.</p>
+        <p class="painter-role">אוהבת צבעים עמוקים</p>
+        <p>שיפרה אוהבת לצייר בצבעים חזקים ומלאים, ולא מפחדת "לצבוע גדול". כשהיא מציירת, כל הדף מתמלא.</p>
       </article>
 
       <article class="painter-card">
-        <svg class="painter-portrait" viewBox="0 0 220 260" aria-hidden="true">
-          <defs>
-            <linearGradient id="frameGold2" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0" stop-color="#e9c06a"/>
-              <stop offset="1" stop-color="#9c7530"/>
-            </linearGradient>
-            <linearGradient id="skinNavy" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0" stop-color="#233457"/>
-              <stop offset="1" stop-color="#0c1522"/>
-            </linearGradient>
-            <radialGradient id="bgNavy" cx="50%" cy="35%" r="65%">
-              <stop offset="0" stop-color="#f3e3c2"/>
-              <stop offset="1" stop-color="#e7d3a1"/>
-            </radialGradient>
-          </defs>
-          <ellipse cx="110" cy="120" rx="96" ry="112" fill="url(#bgNavy)"/>
-          <ellipse cx="110" cy="120" rx="96" ry="112" fill="none" stroke="url(#frameGold2)" stroke-width="6"/>
-          <ellipse cx="110" cy="120" rx="84" ry="100" fill="none" stroke="#c39a49" stroke-width="1.5" stroke-opacity=".6"/>
-          <path d="M60 175 C60 120 78 96 110 96 C142 96 160 120 160 175 Z" fill="url(#skinNavy)"/>
-          <path d="M80 106 C80 80 96 64 110 64 C124 64 140 80 140 106 C140 126 130 138 110 146 C90 138 80 126 80 106 Z" fill="#e2b98a"/>
-          <path d="M76 112 C70 90 82 64 110 62 C138 62 150 92 142 116 C140 100 128 84 110 82 C94 84 82 96 76 112 Z" fill="#4a3220"/>
-          <path d="M66 122 C58 152 60 178 66 198 L52 202 C44 170 48 130 68 106 Z" fill="url(#frameGold2)"/>
-          <path d="M154 122 C162 152 160 178 154 198 L168 202 C176 170 172 130 152 106 Z" fill="url(#frameGold2)"/>
-          <circle cx="97" cy="103" r="3" fill="#22160f"/>
-          <circle cx="123" cy="103" r="3" fill="#22160f"/>
-          <path d="M99 121 Q110 126 121 121" stroke="#16233a" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-        </svg>
         <h3>פועה</h3>
-        <p class="painter-role">קווים עדינים · תשומת לב לפרט</p>
-        <p>פועה מביאה לעבודה עדינות של קו ותשומת לב קפדנית לפרטים הקטנים. היא בונה יצירה שמזמינה מבט שני ושלישי, ומגלה בכל פעם עוד שכבה שלא הבחנתם בה קודם.</p>
+        <p class="painter-role">שמה לב לכל פרט קטן</p>
+        <p>פועה אוהבת לצייר בקווים דקים ועדינים, ולהוסיף פרטים קטנים שמתגלים רק כשמסתכלים על הדף שלה פעם שנייה.</p>
       </article>
 
     </div>
-  </div>
-</section>
-
-<section class="studio">
-  <div class="wrap">
-    <div class="section-head">
-      <p class="eyebrow">מהסטודיו האמיתי</p>
-      <h2>שיפרה ופועה, ברגע אמיתי</h2>
-    </div>
-    <div class="studio-grid">
-      <div class="studio-tile">
-        <img src="assets/shifra-poa-real.jpg" alt="שיפרה ופועה יושבות ליד שולחן העבודה עם קופסת הצבעים שלהן" loading="lazy">
-        <p class="studio-cap"><strong>הרגע האמיתי</strong><br>באמצע עבודה, בסטודיו שלהן בבית</p>
-      </div>
-      <div class="studio-tile">
-        <img src="assets/variation-royal-portrait.jpg" alt="ציור בהשראת שיפרה ופועה, בסגנון דיוקן מלכותי בגוני זהב וארגמן" loading="lazy">
-        <p class="studio-cap"><strong>בעיני המכחול</strong><br>דיוקן בהשראתן, בסגנון גלריית המלך</p>
-      </div>
-      <div class="studio-tile">
-        <img src="assets/variation-gallery-scene.jpg" alt="ציור בהשראת שיפרה ופועה בסטודיו שלהן, בסגנון מאוייר בגוני כחול וזהב" loading="lazy">
-        <p class="studio-cap"><strong>הסטודיו המלכותי</strong><br>אותו חדר, בעיניים של אגדה</p>
-      </div>
-    </div>
-    <p class="gallery-note">התמונה הראשונה היא תמונה אמיתית שלהן; השתיים הבאות הן יצירות AI בהשראתה.</p>
   </div>
 </section>
 
 <section class="gallery" id="gallery">
   <div class="wrap">
     <div class="section-head">
-      <p class="eyebrow">מהסטודיו</p>
-      <h2>מבחר מהיצירות</h2>
+      <p class="eyebrow">עוד קצת צבע</p>
+      <h2>דוגמאות לסגנון שלהן</h2>
     </div>
     <div class="gallery-grid">
 
@@ -543,7 +449,7 @@
           <path d="M0 120 C50 90 90 150 130 110 C160 82 190 120 200 100 L200 0 L0 0 Z" fill="#16233a"/>
           <path d="M20 60 Q100 20 180 70" stroke="#c39a49" stroke-width="6" fill="none" stroke-linecap="round" opacity=".8"/>
         </svg>
-        <span class="gallery-cap">עבודה בצבעי שמן — גוונים עמוקים</span>
+        <span class="gallery-cap">גוונים עמוקים ואהובים</span>
       </div>
 
       <div class="gallery-tile">
@@ -553,7 +459,7 @@
           <path d="M0 250 C60 190 90 230 140 190 C170 168 200 200 200 200 L200 250 Z" fill="#4c141c"/>
           <path d="M10 40 Q100 90 190 30" stroke="#0c1522" stroke-width="4" fill="none" opacity=".5"/>
         </svg>
-        <span class="gallery-cap">קומפוזיציה בגווני זהב</span>
+        <span class="gallery-cap">שלל צבעי זהב</span>
       </div>
 
       <div class="gallery-tile">
@@ -563,7 +469,7 @@
           <path d="M-10 210 C60 160 130 250 210 190" stroke="#e7d3a1" stroke-width="10" fill="none" stroke-linecap="round" opacity=".6"/>
           <path d="M-10 230 C60 190 130 260 210 210" stroke="#6d1f2a" stroke-width="8" fill="none" stroke-linecap="round" opacity=".7"/>
         </svg>
-        <span class="gallery-cap">קו ותנועה — עבודה על בד</span>
+        <span class="gallery-cap">קו ותנועה</span>
       </div>
 
       <div class="gallery-tile">
@@ -572,7 +478,7 @@
           <path d="M0 0 L200 0 L200 130 C150 100 130 160 90 120 C60 90 30 130 0 100 Z" fill="#8a2b38"/>
           <circle cx="60" cy="190" r="46" fill="#9c7530" opacity=".5"/>
         </svg>
-        <span class="gallery-cap">פורטרט מוזמן — טכניקה מעורבת</span>
+        <span class="gallery-cap">משחק בצבע ובצורה</span>
       </div>
 
       <div class="gallery-tile">
@@ -581,7 +487,7 @@
           <path d="M0 250 L0 150 C50 190 80 120 120 160 C150 190 180 140 200 170 L200 250 Z" fill="#e9c06a"/>
           <path d="M20 40 Q100 -10 180 50" stroke="#16233a" stroke-width="5" fill="none" opacity=".7"/>
         </svg>
-        <span class="gallery-cap">נוף מדומיין — שכבות אקריליק</span>
+        <span class="gallery-cap">נוף מהדמיון</span>
       </div>
 
       <div class="gallery-tile">
@@ -590,35 +496,35 @@
           <path d="M0 100 C50 60 90 140 140 90 C170 60 200 100 200 100 L200 250 L0 250 Z" fill="#c39a49" opacity=".9"/>
           <path d="M0 40 Q100 100 200 30" stroke="#6d1f2a" stroke-width="6" fill="none" opacity=".8"/>
         </svg>
-        <span class="gallery-cap">עבודה מותאמת לחלל — הזמנה אישית</span>
+        <span class="gallery-cap">עוד יצירה מהלב</span>
       </div>
 
     </div>
-    <p class="gallery-note">דוגמיות להמחשת הסגנון והטכניקה. כל יצירה בפועל נוצרת בהתאמה אישית לבקשתכם.</p>
+    <p class="gallery-note">דוגמיות שמראות קצת מהסגנון והצבעים שהן הכי אוהבות.</p>
   </div>
 </section>
 
 <section class="offer">
   <div class="wrap">
     <div class="section-head">
-      <p class="eyebrow">איך זה עובד</p>
-      <h2>מה מקבלים</h2>
+      <p class="eyebrow">למה "ציירות המלך"</p>
+      <h2>מה מיוחד בציורים שלהן</h2>
     </div>
     <div class="offer-grid">
       <div class="offer-card">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 20 L15 9 L19 13 L8 20 Z"/><path d="M14 6 L18 10"/><path d="M17 5 L19 3 L21 5 L19 7 Z"/></svg>
-        <h3>ציור בהזמנה אישית</h3>
-        <p>יצירה שנולדת מתוך שיחה איתכם — הגודל, הצבעים והתחושה נבחרים יחד, בהתאמה למרחב שלכם.</p>
+        <h3>המון צבע</h3>
+        <p>אף פעם לא נגמרים להן הרעיונות לצבעים — כל דף מתמלא מקצה לקצה.</p>
       </div>
       <div class="offer-card">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="4" width="18" height="14" rx="1.5"/><path d="M3 15 L9 9 L13 13 L21 7"/></svg>
-        <h3>התאמה למרחב</h3>
-        <p>עבודה שמתוכננת לאור, לצבעים ולפרופורציות של החדר — כך שהיא מרגישה חלק בלתי נפרד מהבית.</p>
+        <h3>דמיון בלי גבולות</h3>
+        <p>עולמות, בעלי חיים ודמויות שנולדים רק במוח שלהן — ואז נוחתים על הדף.</p>
       </div>
       <div class="offer-card">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3 L14.5 9.2 L21 10 L16 14.3 L17.5 21 L12 17.5 L6.5 21 L8 14.3 L3 10 L9.5 9.2 Z"/></svg>
-        <h3>ליווי אישי</h3>
-        <p>מהרעיון הראשוני ועד התלייה על הקיר — עדכונים לאורך הדרך ותשומת לב לכל בקשה.</p>
+        <h3>המון סבלנות</h3>
+        <p>הן יכולות לשבת ולצייר שעה שלמה בלי להרים ראש — כי זה פשוט כיף להן.</p>
       </div>
     </div>
   </div>
@@ -628,7 +534,7 @@
   <div class="wrap">
     <p class="eyebrow">נשמח לשמוע מכם</p>
     <h2>בואו ניצור קשר</h2>
-    <p class="contact-sub">ספרו לנו על החלל שלכם ועל מה שחסר לו — ונחזור אליכם עם רעיון.</p>
+    <p class="contact-sub">רוצים לראות עוד מהיצירות של שיפרה ופועה? נשמח לשתף — כתבו לנו בוואטסאפ או במייל.</p>
     <div class="contact-ctas">
       <a class="btn btn-primary" href="https://wa.me/972549774827?text=%D7%A9%D7%9C%D7%95%D7%9D%2C%20%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%A9%D7%9E%D7%95%D7%A2%20%D7%A2%D7%95%D7%93%20%D7%A2%D7%9C%20%D7%94%D7%99%D7%A6%D7%99%D7%A8%D7%95%D7%AA%20%D7%A9%D7%9C%20%D7%A9%D7%99%D7%A4%D7%A8%D7%94%20%D7%95%D7%A4%D7%95%D7%A2%D7%94" target="_blank" rel="noopener">
         <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2c-5.5 0-9.96 4.46-9.96 9.96 0 1.76.46 3.44 1.32 4.94L2 22l5.24-1.37a9.9 9.9 0 0 0 4.8 1.22h.01c5.5 0 9.96-4.46 9.96-9.96C22 6.46 17.55 2 12.04 2Zm5.84 14.15c-.25.7-1.44 1.34-1.98 1.42-.5.08-1.14.11-1.84-.12-.42-.13-.97-.31-1.67-.6-2.93-1.27-4.84-4.2-4.99-4.4-.15-.2-1.19-1.58-1.19-3.01 0-1.43.75-2.13 1.02-2.42.27-.29.58-.36.78-.36.2 0 .4 0 .57.01.18.01.43-.07.67.51.25.6.85 2.08.92 2.23.07.15.12.33.02.53-.1.2-.15.32-.3.49-.15.17-.31.38-.44.51-.15.15-.3.31-.13.6.17.3.77 1.27 1.65 2.06 1.14 1.02 2.1 1.33 2.4 1.48.3.15.47.13.65-.08.18-.2.76-.88.96-1.19.2-.3.4-.25.67-.15.27.1 1.73.82 2.03.97.3.15.5.22.57.35.07.13.07.75-.18 1.45Z"/></svg>
@@ -647,7 +553,7 @@
 </section>
 
 <footer>
-  <strong>שיפרה ופועה — ציירות המלך</strong> · אמנות בהזמנה אישית
+  <strong>שיפרה ופועה — ציירות המלך</strong> · עם המון צבע ואהבה
 </footer>
 
 </body>
