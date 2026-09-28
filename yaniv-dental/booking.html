@@ -492,13 +492,26 @@
     var submitBtn = document.getElementById("submitBtn");
     submitBtn.disabled = true;
 
+    function openMailto(url) {
+      // A real <a> click hands the mailto: scheme to the OS without
+      // navigating this tab. Setting window.location.href to a mailto: URL
+      // instead makes some embedded browsers (WhatsApp/Instagram in-app,
+      // some Android WebViews) attempt a real page navigation to it, which
+      // they can't resolve — the tab goes blank and no mail app ever opens.
+      var a = document.createElement("a");
+      a.href = url;
+      a.style.display = "none";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+    }
     function showManualFallback() {
       document.getElementById("successTitle").textContent = "הבקשה מוכנה לשליחה!";
       document.getElementById("successText").textContent =
         "פתחנו עבורכם הודעת מייל מוכנה ליניב עם כל הפרטים — צריך רק לאשר שליחה בתוכנת המייל שנפתחה (או באפליקציה בנייד).";
       goStage(4);
       submitBtn.disabled = false;
-      window.location.href = mailto;
+      openMailto(mailto);
     }
     function showAutoSent() {
       document.getElementById("successTitle").textContent = "הבקשה נשלחה!";
