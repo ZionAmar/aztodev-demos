@@ -1,0 +1,538 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ד״ר יניב לוי | רפואת שיניים</title>
+<meta name="description" content="ד״ר יניב לוי — מרפאת שיניים בוטיק. אסתטיקה דנטלית, שתלים ושיקום הפה, בגישה אישית ומדויקת.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;500;700;900&family=Heebo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#12201c;
+    --cream:#faf6ef;
+    --cream-2:#f2ece0;
+    --emerald:#0e3b32;
+    --emerald-2:#134a3e;
+    --gold:#c6a15b;
+    --gold-2:#e8cf9c;
+    --muted:#6b7a74;
+    --line:rgba(18,32,28,.1);
+    --shadow: 0 20px 50px rgba(14,59,50,.14);
+    --radius: 18px;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;
+    font-family:"Heebo",system-ui,sans-serif;
+    color:var(--ink);
+    background:var(--cream);
+    line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,.serif{font-family:"Frank Ruhl Libre",serif}
+  img,svg{display:block;max-width:100%}
+  a{color:inherit}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:8px;
+    font-size:13px;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--gold);font-weight:600;
+  }
+  .eyebrow::before{content:"";width:26px;height:1px;background:var(--gold)}
+
+  /* ---------- nav ---------- */
+  header.nav{
+    position:sticky;top:0;z-index:50;
+    background:rgba(250,246,239,.86);backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-row{display:flex;align-items:center;justify-content:space-between;padding:16px 24px;max-width:1120px;margin:0 auto}
+  .brand{display:flex;align-items:center;gap:10px;font-family:"Frank Ruhl Libre",serif;font-size:20px;font-weight:700;color:var(--emerald)}
+  .brand .mark{width:34px;height:34px}
+  .nav-links{display:flex;gap:28px;font-size:15px;font-weight:500}
+  .nav-links a{text-decoration:none;color:var(--ink);opacity:.8;transition:opacity .2s}
+  .nav-links a:hover{opacity:1;color:var(--emerald)}
+  .btn{
+    display:inline-flex;align-items:center;gap:8px;
+    padding:12px 22px;border-radius:999px;font-weight:600;font-size:15px;
+    text-decoration:none;border:1px solid transparent;transition:transform .2s, box-shadow .2s, background .2s;
+  }
+  .btn-gold{background:linear-gradient(135deg,var(--gold-2),var(--gold));color:var(--emerald);box-shadow:0 8px 20px rgba(198,161,91,.35)}
+  .btn-gold:hover{transform:translateY(-2px)}
+  .btn-outline{border-color:rgba(250,246,239,.5);color:var(--cream)}
+  .btn-outline:hover{background:rgba(250,246,239,.1)}
+  .nav .btn{padding:10px 20px;font-size:14px}
+  .burger{display:none}
+
+  /* ---------- hero ---------- */
+  .hero{
+    position:relative;overflow:hidden;
+    background:radial-gradient(1100px 500px at 80% -10%, #1a5548 0%, var(--emerald) 55%, var(--emerald) 100%);
+    color:var(--cream);
+    padding:96px 0 120px;
+  }
+  .hero::after{
+    content:"";position:absolute;inset:0;
+    background-image:radial-gradient(circle at 12% 30%, rgba(230,207,156,.14) 0, transparent 40%),
+                      radial-gradient(circle at 90% 80%, rgba(230,207,156,.10) 0, transparent 45%);
+    pointer-events:none;
+  }
+  .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center;position:relative}
+  .hero h1{font-size:clamp(34px,4.6vw,58px);line-height:1.12;margin:18px 0 20px;font-weight:700}
+  .hero h1 em{font-style:normal;color:var(--gold-2)}
+  .hero p.lead{font-size:18px;color:rgba(250,246,239,.82);max-width:520px;margin:0 0 34px}
+  .hero-cta{display:flex;gap:14px;flex-wrap:wrap}
+  .hero-badges{display:flex;gap:26px;margin-top:52px;flex-wrap:wrap}
+  .hero-badge{display:flex;flex-direction:column;gap:2px}
+  .hero-badge b{font-size:26px;font-family:"Frank Ruhl Libre",serif;color:var(--gold-2)}
+  .hero-badge span{font-size:13px;color:rgba(250,246,239,.7)}
+
+  .hero-art{position:relative}
+  .card-photo{
+    background:linear-gradient(155deg,#f5efe2,#e9dfc9);
+    border-radius:24px;padding:26px;box-shadow:var(--shadow);
+    transform:rotate(-1.2deg);
+  }
+  .card-photo svg{width:100%;height:auto;border-radius:16px}
+  .float-card{
+    position:absolute;background:var(--cream);border-radius:16px;padding:14px 18px;
+    box-shadow:0 14px 34px rgba(14,59,50,.22);display:flex;align-items:center;gap:12px;
+    font-size:14px;font-weight:600;color:var(--emerald);
+  }
+  .float-1{bottom:-18px;right:-14px;transform:rotate(2deg)}
+  .float-2{top:-16px;left:-18px;transform:rotate(-3deg)}
+  .float-card .dot{width:38px;height:38px;border-radius:50%;background:var(--gold-2);display:flex;align-items:center;justify-content:center}
+  .float-card .dot svg{width:20px;height:20px}
+
+  /* ---------- section basics ---------- */
+  section{padding:96px 0}
+  .section-head{max-width:640px;margin:0 auto 56px;text-align:center}
+  .section-head h2{font-size:clamp(28px,3.4vw,40px);margin:14px 0 12px}
+  .section-head p{color:var(--muted);font-size:17px}
+
+  /* ---------- about ---------- */
+  .about{background:var(--cream)}
+  .about-grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:60px;align-items:center}
+  .about-portrait{
+    background:var(--emerald);border-radius:24px;padding:22px;box-shadow:var(--shadow);
+  }
+  .about-portrait svg{border-radius:16px}
+  .creds{list-style:none;margin:26px 0 0;padding:0;display:grid;gap:16px}
+  .creds li{display:flex;gap:14px;align-items:flex-start}
+  .creds .icon{
+    flex:none;width:40px;height:40px;border-radius:12px;background:var(--cream-2);
+    display:flex;align-items:center;justify-content:center;color:var(--emerald);
+  }
+  .creds .icon svg{width:20px;height:20px}
+  .creds b{display:block;font-size:16px;margin-bottom:2px}
+  .creds span{color:var(--muted);font-size:14.5px}
+
+  /* ---------- services ---------- */
+  .services{background:var(--cream-2)}
+  .svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
+  .svc-card{
+    background:var(--cream);border-radius:var(--radius);padding:32px 26px;
+    border:1px solid var(--line);transition:transform .25s, box-shadow .25s;
+  }
+  .svc-card:hover{transform:translateY(-6px);box-shadow:var(--shadow)}
+  .svc-icon{
+    width:56px;height:56px;border-radius:16px;
+    background:linear-gradient(135deg,var(--emerald),var(--emerald-2));
+    display:flex;align-items:center;justify-content:center;margin-bottom:18px;
+  }
+  .svc-icon svg{width:28px;height:28px;color:var(--gold-2)}
+  .svc-card h3{font-size:20px;margin:0 0 10px}
+  .svc-card p{color:var(--muted);font-size:15px;margin:0}
+
+  /* ---------- gallery (illustrative, not literal photos) ---------- */
+  .gallery{background:var(--cream)}
+  .gal-note{
+    text-align:center;color:var(--muted);font-size:14px;margin-top:-30px;margin-bottom:50px;
+  }
+  .gal-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+  .gal-tile{
+    aspect-ratio:1/1.05;border-radius:16px;overflow:hidden;position:relative;
+    box-shadow:0 10px 24px rgba(14,59,50,.10);
+  }
+  .gal-tile svg{width:100%;height:100%}
+  .gal-tile .cap{
+    position:absolute;inset-inline:0;bottom:0;padding:12px 14px;
+    background:linear-gradient(to top, rgba(14,59,50,.82), transparent);
+    color:#fff;font-size:13px;font-weight:600;
+  }
+
+  /* ---------- testimonials ---------- */
+  .testi{
+    background:linear-gradient(180deg,var(--emerald) 0%, var(--emerald-2) 100%);
+    color:var(--cream);
+  }
+  .testi .section-head p{color:rgba(250,246,239,.72)}
+  .testi .eyebrow{color:var(--gold-2)}
+  .testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+  .testi-card{
+    background:rgba(250,246,239,.06);border:1px solid rgba(250,246,239,.14);
+    border-radius:var(--radius);padding:28px 24px;backdrop-filter:blur(4px);
+  }
+  .stars{display:flex;gap:4px;margin-bottom:16px}
+  .stars svg{width:16px;height:16px;color:var(--gold-2)}
+  .testi-card p{font-size:15px;color:rgba(250,246,239,.9);margin:0 0 18px}
+  .testi-who{display:flex;align-items:center;gap:12px}
+  .avatar{
+    width:42px;height:42px;border-radius:50%;
+    background:linear-gradient(135deg,var(--gold-2),var(--gold));
+    display:flex;align-items:center;justify-content:center;
+    font-family:"Frank Ruhl Libre",serif;font-weight:700;color:var(--emerald);font-size:16px;
+  }
+  .testi-who b{display:block;font-size:14.5px}
+  .testi-who span{font-size:12.5px;color:rgba(250,246,239,.62)}
+
+  /* ---------- cta / contact ---------- */
+  .contact{background:var(--cream-2)}
+  .contact-card{
+    background:var(--cream);border-radius:28px;padding:56px;box-shadow:var(--shadow);
+    display:grid;grid-template-columns:1.1fr .9fr;gap:44px;align-items:center;
+    border:1px solid var(--line);
+  }
+  .contact h2{font-size:clamp(26px,3vw,34px);margin:0 0 14px}
+  .contact p{color:var(--muted);margin:0 0 26px;max-width:440px}
+  .contact-actions{display:flex;gap:14px;flex-wrap:wrap}
+  .btn-emerald{background:var(--emerald);color:var(--cream)}
+  .btn-emerald:hover{background:var(--emerald-2);transform:translateY(-2px)}
+  .contact-info{display:grid;gap:16px}
+  .info-row{
+    display:flex;align-items:center;gap:14px;background:var(--cream-2);
+    border-radius:14px;padding:16px 18px;
+  }
+  .info-row .icon{
+    flex:none;width:40px;height:40px;border-radius:10px;background:var(--emerald);
+    display:flex;align-items:center;justify-content:center;
+  }
+  .info-row .icon svg{width:19px;height:19px;color:var(--gold-2)}
+  .info-row b{display:block;font-size:12.5px;color:var(--muted);font-weight:500}
+  .info-row span{font-size:15px;font-weight:600;direction:ltr;display:inline-block;text-align:right}
+
+  /* ---------- footer ---------- */
+  footer{background:var(--emerald);color:rgba(250,246,239,.7);padding:44px 0 30px}
+  .foot-row{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px}
+  .foot-brand{display:flex;align-items:center;gap:10px;font-family:"Frank Ruhl Libre",serif;color:var(--cream);font-size:18px;font-weight:700}
+  footer small{font-size:12.5px}
+  .foot-note{margin-top:18px;font-size:12px;color:rgba(250,246,239,.45);border-top:1px solid rgba(250,246,239,.14);padding-top:18px}
+
+  @media (max-width:920px){
+    .hero-grid{grid-template-columns:1fr;gap:64px}
+    .hero{padding-top:120px}
+    .about-grid{grid-template-columns:1fr}
+    .svc-grid{grid-template-columns:1fr 1fr}
+    .gal-grid{grid-template-columns:1fr 1fr}
+    .testi-grid{grid-template-columns:1fr}
+    .contact-card{grid-template-columns:1fr;padding:34px}
+    .nav-links{display:none}
+  }
+  @media (max-width:560px){
+    .svc-grid{grid-template-columns:1fr}
+    .gal-grid{grid-template-columns:1fr 1fr}
+    section{padding:64px 0}
+    .hero{padding:110px 0 90px}
+  }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-row">
+    <div class="brand">
+      <svg class="mark" viewBox="0 0 40 40" fill="none">
+        <circle cx="20" cy="20" r="19" fill="#0e3b32"/>
+        <path d="M20 11c-3.6 0-6 1.8-6 5.4 0 2.7 1.2 4.4 1.7 6.9.4 2.1.5 5.7 2.4 5.7.9 0 1.1-1.7 1.3-3.3.2-1.5.3-2.9 1-2.9.7 0 .8 1.4 1 2.9.2 1.6.4 3.3 1.3 3.3 1.9 0 2-3.6 2.4-5.7.5-2.5 1.7-4.2 1.7-6.9 0-3.6-2.4-5.4-6-5.4Z" fill="#e8cf9c"/>
+      </svg>
+      יניב לוי <span style="color:var(--gold);font-weight:400">| רפואת שיניים</span>
+    </div>
+    <nav class="nav-links">
+      <a href="#about">אודות</a>
+      <a href="#services">התמחויות</a>
+      <a href="#gallery">העבודה שלנו</a>
+      <a href="#testimonials">המלצות</a>
+      <a href="#contact">יצירת קשר</a>
+    </nav>
+    <a class="btn btn-gold" href="#contact">קביעת תור</a>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="eyebrow">מרפאת שיניים בוטיק · טבריה והסביבה</span>
+      <h1>חיוך שאתם <em>גאים</em> בו,<br>בידיים מקצועיות ורגישות</h1>
+      <p class="lead">ד״ר יניב לוי מלווה כל מטופל בגישה אישית, שקטה ומדויקת — מטיפול שורש עד עיצוב חיוך מלא. פגישת ייעוץ ראשונה ללא התחייבות.</p>
+      <div class="hero-cta">
+        <a class="btn btn-gold" href="#contact">לקביעת תור עכשיו</a>
+        <a class="btn btn-outline" href="#services">להכיר את הטיפולים</a>
+      </div>
+      <div class="hero-badges">
+        <div class="hero-badge"><b>+7</b><span>שנות ניסיון קליני</span></div>
+        <div class="hero-badge"><b>1:1</b><span>ליווי אישי לכל מטופל</span></div>
+        <div class="hero-badge"><b>0</b><span>המתנה מיותרת בקליניקה</span></div>
+      </div>
+    </div>
+    <div class="hero-art">
+      <div class="card-photo">
+        <svg viewBox="0 0 460 340" xmlns="http://www.w3.org/2000/svg">
+          <rect width="460" height="340" rx="14" fill="#f6f1e4"/>
+          <rect x="24" y="24" width="412" height="292" rx="10" fill="#eee6d3"/>
+          <circle cx="150" cy="150" r="70" fill="#0e3b32"/>
+          <path d="M150 118c-15 0-25 8-25 23 0 11 5 18 7 29 2 9 2 24 10 24 4 0 5-7 5-14 0-6 1-12 3-12s3 6 3 12c0 7 1 14 5 14 8 0 8-15 10-24 2-11 7-18 7-29 0-15-10-23-25-23Z" fill="#e8cf9c"/>
+          <rect x="250" y="70" width="150" height="14" rx="7" fill="#c6a15b" opacity=".55"/>
+          <rect x="250" y="98" width="110" height="10" rx="5" fill="#0e3b32" opacity=".35"/>
+          <rect x="250" y="150" width="150" height="90" rx="12" fill="#ffffff" stroke="#e3d8bd" stroke-width="2"/>
+          <circle cx="278" cy="176" r="10" fill="#0e3b32"/>
+          <rect x="298" y="170" width="90" height="8" rx="4" fill="#c6a15b"/>
+          <rect x="298" y="186" width="70" height="6" rx="3" fill="#d8cfb8"/>
+          <circle cx="278" cy="212" r="10" fill="#c6a15b"/>
+          <rect x="298" y="206" width="90" height="8" rx="4" fill="#0e3b32" opacity=".7"/>
+          <rect x="298" y="222" width="55" height="6" rx="3" fill="#d8cfb8"/>
+        </svg>
+      </div>
+      <div class="float-card float-1">
+        <span class="dot"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3 3 8v5c0 5 4 8 9 10 5-2 9-5 9-10V8l-9-5Z" stroke="#0e3b32" stroke-width="1.6"/></svg></span>
+        טיפול בטוח ומאושר
+      </div>
+      <div class="float-card float-2">
+        <span class="dot" style="background:#0e3b32"><svg viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="#e8cf9c" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        זמינות גם בשעות ערב
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="about" id="about">
+  <div class="wrap about-grid">
+    <div class="about-portrait">
+      <svg viewBox="0 0 380 460" xmlns="http://www.w3.org/2000/svg">
+        <rect width="380" height="460" rx="16" fill="#123e34"/>
+        <circle cx="190" cy="180" r="86" fill="#f6f1e4"/>
+        <path d="M190 132c-19 0-32 10-32 30 0 15 6 24 9 38 3 12 3 31 13 31 5 0 6-9 7-19 1-8 2-16 4-16s3 8 4 16c1 10 2 19 7 19 10 0 10-19 13-31 3-14 9-23 9-38 0-20-13-30-32-30Z" fill="#0e3b32"/>
+        <rect x="90" y="300" width="200" height="120" rx="14" fill="#e8cf9c" opacity=".18"/>
+        <rect x="120" y="330" width="140" height="12" rx="6" fill="#e8cf9c"/>
+        <rect x="120" y="356" width="100" height="9" rx="4.5" fill="#f6f1e4" opacity=".7"/>
+        <rect x="120" y="378" width="120" height="9" rx="4.5" fill="#f6f1e4" opacity=".45"/>
+      </svg>
+    </div>
+    <div>
+      <span class="eyebrow">אודות ד״ר יניב</span>
+      <h2 class="serif">רפואת שיניים שמתחילה בהקשבה</h2>
+      <p style="color:var(--muted);font-size:16.5px">
+        ד״ר יניב לוי הוא רופא שיניים המשלב דיוק קליני עם גישה חמה ורגועה. הקליניקה
+        נבנתה סביב רעיון פשוט: מטופל שמרגיש בטוח מקבל טיפול טוב יותר. כל תוכנית
+        טיפול נבנית אישית — עם הסבר מלא, שקיפות במחיר ובלוחות זמנים, ובלי הפתעות.
+      </p>
+      <ul class="creds">
+        <li>
+          <span class="icon"><svg viewBox="0 0 24 24" fill="none"><path d="M22 10 12 4 2 10l10 6 8-4.6V17" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 12.5V17c0 1.7 2.7 3 6 3s6-1.3 6-3v-4.5" stroke="currentColor" stroke-width="1.7"/></svg></span>
+          <div><b>תואר ברפואת שיניים</b><span>בוגר תואר ברפואת שיניים, מוסמך משרד הבריאות לעסוק ברפואת שיניים כללית ואסתטית.</span></div>
+        </li>
+        <li>
+          <span class="icon"><svg viewBox="0 0 24 24" fill="none"><path d="M12 2 3 7v6c0 5 4 8.5 9 9 5-.5 9-4 9-9V7l-9-5Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="m8.5 12 2.3 2.3L16 9" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <div><b>הכשרה מקצועית מתמשכת</b><span>השתלמויות שוטפות בתחומי האסתטיקה הדנטלית, שיקום הפה והשתלים.</span></div>
+        </li>
+        <li>
+          <span class="icon"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="1.7"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></span>
+          <div><b>ליווי אישי</b><span>כל מטופל מקבל תוכנית טיפול מותאמת, עם זמינות למענה גם מחוץ לשעות הקבלה.</span></div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="services" id="services">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">התמחויות</span>
+      <h2 class="serif">הטיפולים שבהם אנחנו הכי טובים</h2>
+      <p>מטיפול שגרתי ועד שיקום פה מורכב — בכל שלב, אותה תשומת לב לפרטים.</p>
+    </div>
+    <div class="svc-grid">
+      <div class="svc-card">
+        <div class="svc-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3c-3.6 0-6 1.8-6 5.4 0 2.7 1.2 4.4 1.7 6.9.4 2.1.5 5.7 2.4 5.7.9 0 1.1-1.7 1.3-3.3.2-1.5.3-2.9 1-2.9.7 0 .8 1.4 1 2.9.2 1.6.4 3.3 1.3 3.3 1.9 0 2-3.6 2.4-5.7.5-2.5 1.7-4.2 1.7-6.9 0-3.6-2.4-5.4-6-5.4Z" stroke="currentColor" stroke-width="1.6"/></svg></div>
+        <h3>אסתטיקה דנטלית</h3>
+        <p>הלבנות, ציפויים וכתרים חדשניים לעיצוב חיוך טבעי ומדויק.</p>
+      </div>
+      <div class="svc-card">
+        <div class="svc-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M12 2v6M12 22v-6M4.9 4.9l4.2 4.2M14.9 14.9l4.2 4.2M2 12h6M16 12h6M4.9 19.1l4.2-4.2M14.9 9.1l4.2-4.2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></div>
+        <h3>שתלים דנטליים</h3>
+        <p>החזרת שיניים שאבדו בשיטות מתקדמות, עם תכנון תלת-ממדי מראש.</p>
+      </div>
+      <div class="svc-card">
+        <div class="svc-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M12 21s-7-4.35-9.5-9A5.5 5.5 0 0 1 12 6a5.5 5.5 0 0 1 9.5 6c-2.5 4.65-9.5 9-9.5 9Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></div>
+        <h3>טיפולי שורש</h3>
+        <p>טיפול עדין ויעיל, עם דגש מיוחד על מזעור אי-הנוחות.</p>
+      </div>
+      <div class="svc-card">
+        <div class="svc-icon"><svg viewBox="0 0 24 24" fill="none"><rect x="4" y="4" width="16" height="16" rx="4" stroke="currentColor" stroke-width="1.6"/><path d="M8 12h8M12 8v8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></div>
+        <h3>שיקום פה מלא</h3>
+        <p>תוכנית טיפול מקיפה למקרים מורכבים, בליווי צמוד מתחילה ועד סוף.</p>
+      </div>
+      <div class="svc-card">
+        <div class="svc-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M9 6h6l1 4-4 3 1 5-4-2-4 2 1-5-4-3 1-4Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></div>
+        <h3>יישור שיניים שקוף</h3>
+        <p>מיישרים שקופים כמעט בלתי נראים, מותאמים אישית לקצב החיים שלכם.</p>
+      </div>
+      <div class="svc-card">
+        <div class="svc-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3v3M12 18v3M4.2 7l2.6 1.5M17.2 15.5 19.8 17M4.2 17l2.6-1.5M17.2 8.5 19.8 7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="1.6"/></svg></div>
+        <h3>מניעה וטיפוח</h3>
+        <p>בדיקות תקופתיות, ניקוי אבנית והדרכה לשמירה על חיוך בריא לאורך זמן.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="gallery" id="gallery">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">העבודה שלנו</span>
+      <h2 class="serif">רגעים מהקליניקה</h2>
+    </div>
+    <div class="gal-grid">
+      <div class="gal-tile">
+        <svg viewBox="0 0 200 210" xmlns="http://www.w3.org/2000/svg">
+          <rect width="200" height="210" fill="#0e3b32"/>
+          <circle cx="100" cy="90" r="52" fill="#e8cf9c" opacity=".9"/>
+          <path d="M100 62c-11 0-18 6-18 16 0 8 3 13 5 20 2 6 2 17 7 17s3-9 4-16c1-4 1-8 2-8s1 4 2 8c1 7 0 16 4 16 5 0 5-11 7-17 2-7 5-12 5-20 0-10-7-16-18-16Z" fill="#0e3b32"/>
+          <rect x="0" y="168" width="200" height="42" fill="#123e34"/>
+        </svg>
+        <div class="cap">חדר טיפולים</div>
+      </div>
+      <div class="gal-tile">
+        <svg viewBox="0 0 200 210" xmlns="http://www.w3.org/2000/svg">
+          <rect width="200" height="210" fill="#c6a15b"/>
+          <rect x="30" y="40" width="140" height="90" rx="10" fill="#faf6ef"/>
+          <circle cx="70" cy="85" r="16" fill="#0e3b32"/>
+          <rect x="96" y="72" width="60" height="10" rx="5" fill="#0e3b32" opacity=".6"/>
+          <rect x="96" y="90" width="44" height="8" rx="4" fill="#0e3b32" opacity=".35"/>
+          <rect x="0" y="150" width="200" height="60" fill="#8a6c33"/>
+        </svg>
+        <div class="cap">ציוד מתקדם</div>
+      </div>
+      <div class="gal-tile">
+        <svg viewBox="0 0 200 210" xmlns="http://www.w3.org/2000/svg">
+          <rect width="200" height="210" fill="#134a3e"/>
+          <path d="M100 55c-16 0-26 9-26 26 0 12 5 19 7 30 2 9 2 25 10 25s6-13 8-23c1-6 1-11 3-11s2 5 3 11c2 10 0 23 8 23s8-16 10-25c2-11 7-18 7-30 0-17-10-26-26-26Z" fill="#e8cf9c"/>
+          <rect x="0" y="170" width="200" height="40" fill="#0e3b32"/>
+        </svg>
+        <div class="cap">עיצוב חיוך</div>
+      </div>
+      <div class="gal-tile">
+        <svg viewBox="0 0 200 210" xmlns="http://www.w3.org/2000/svg">
+          <rect width="200" height="210" fill="#e8cf9c"/>
+          <circle cx="100" cy="90" r="46" fill="#0e3b32"/>
+          <path d="m78 90 14 14 30-30" stroke="#e8cf9c" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          <rect x="0" y="160" width="200" height="50" fill="#c6a15b"/>
+        </svg>
+        <div class="cap">בקרת איכות</div>
+      </div>
+    </div>
+    <p class="gal-note">האיורים שלמעלה מייצגים את אווירת הקליניקה ותחומי הטיפול — תמונות אמיתיות מהקליניקה יתווספו בהמשך.</p>
+  </div>
+</section>
+
+<section class="testi" id="testimonials">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">המלצות</span>
+      <h2 class="serif">מה המטופלים אומרים</h2>
+      <p>חלק מהתגובות שקיבלנו מאנשים שטופלו אצלנו.</p>
+    </div>
+    <div class="testi-grid">
+      <div class="testi-card">
+        <div class="stars">
+          <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1.5l2.6 5.3 5.9.8-4.3 4.1 1 5.8-5.2-2.7-5.2 2.7 1-5.8-4.3-4.1 5.9-.8Z"/></svg>
+          <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1.5l2.6 5.3 5.9.8-4.3 4.1 1 5.8-5.2-2.7-5.2 2.7 1-5.8-4.3-4.1 5.9-.8Z"/></svg>
+          <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1.5l2.6 5.3 5.9.8-4.3 4.1 1 5.8-5.2-2.7-5.2 2.7 1-5.8-4.3-4.1 5.9-.8Z"/></svg>
+          <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1.5l2.6 5.3 5.9.8-4.3 4.1 1 5.8-5.2-2.7-5.2 2.7 1-5.8-4.3-4.1 5.9-.8Z"/></svg>
+          <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1.5l2.6 5.3 5.9.8-4.3 4.1 1 5.8-5.2-2.7-5.2 2.7 1-5.8-4.3-4.1 5.9-.8Z"/></svg>
+        </div>
+        <p>״הגעתי עם חשש גדול מטיפול שורש, וד״ר יניב הסביר כל שלב לפני שביצע אותו. יצאתי בלי כאבים ובלי חרדה.״</p>
+        <div class="testi-who">
+          <div class="avatar">מ</div>
+          <div><b>מיכל ל.</b><span>מטופלת, טיפול שורש</span></div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="stars">
+          <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1.5l2.6 5.3 5.9.8-4.3 4.1 1 5.8-5.2-2.7-5.2 2.7 1-5.8-4.3-4.1 5.9-.8Z"/></svg>
+          <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1.5l2.6 5.3 5.9.8-4.3 4.1 1 5.8-5.2-2.7-5.2 2.7 1-5.8-4.3-4.1 5.9-.8Z"/></svg>
+          <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1.5l2.6 5.3 5.9.8-4.3 4.1 1 5.8-5.2-2.7-5.2 2.7 1-5.8-4.3-4.1 5.9-.8Z"/></svg>
+          <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1.5l2.6 5.3 5.9.8-4.3 4.1 1 5.8-5.2-2.7-5.2 2.7 1-5.8-4.3-4.1 5.9-.8Z"/></svg>
+          <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1.5l2.6 5.3 5.9.8-4.3 4.1 1 5.8-5.2-2.7-5.2 2.7 1-5.8-4.3-4.1 5.9-.8Z"/></svg>
+        </div>
+        <p>״עברתי יישור שקוף אצל ד״ר יניב. תהליך מסודר, מעקב צמוד, והתוצאה עלתה על הציפיות שלי.״</p>
+        <div class="testi-who">
+          <div class="avatar">א</div>
+          <div><b>אבי ר.</b><span>מטופל, יישור שקוף</span></div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="stars">
+          <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1.5l2.6 5.3 5.9.8-4.3 4.1 1 5.8-5.2-2.7-5.2 2.7 1-5.8-4.3-4.1 5.9-.8Z"/></svg>
+          <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1.5l2.6 5.3 5.9.8-4.3 4.1 1 5.8-5.2-2.7-5.2 2.7 1-5.8-4.3-4.1 5.9-.8Z"/></svg>
+          <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1.5l2.6 5.3 5.9.8-4.3 4.1 1 5.8-5.2-2.7-5.2 2.7 1-5.8-4.3-4.1 5.9-.8Z"/></svg>
+          <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1.5l2.6 5.3 5.9.8-4.3 4.1 1 5.8-5.2-2.7-5.2 2.7 1-5.8-4.3-4.1 5.9-.8Z"/></svg>
+          <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1.5l2.6 5.3 5.9.8-4.3 4.1 1 5.8-5.2-2.7-5.2 2.7 1-5.8-4.3-4.1 5.9-.8Z"/></svg>
+        </div>
+        <p>״הבאתי את הילדים שלי אליו והוא ידע בדיוק איך לגרום להם להרגיש בנוח. ממליצה בחום למשפחות.״</p>
+        <div class="testi-who">
+          <div class="avatar">ד</div>
+          <div><b>דנה מ.</b><span>מטופלת, טיפול משפחתי</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="wrap">
+    <div class="contact-card">
+      <div>
+        <span class="eyebrow">יצירת קשר</span>
+        <h2 class="serif">בואו נדבר על החיוך שלכם</h2>
+        <p>פגישת ייעוץ ראשונה ללא התחייבות. השאירו פרטים או צרו קשר ישירות — נחזור אליכם בהקדם.</p>
+        <div class="contact-actions">
+          <a class="btn btn-emerald" href="mailto:aztodev@gmail.com?subject=קביעת%20תור%20-%20ד%22ר%20יניב%20לוי">שליחת מייל</a>
+          <a class="btn btn-gold" href="tel:0549774827">התקשרו עכשיו</a>
+        </div>
+      </div>
+      <div class="contact-info">
+        <div class="info-row">
+          <span class="icon"><svg viewBox="0 0 24 24" fill="none"><path d="M3 8.5v7A2.5 2.5 0 0 0 5.5 18h13a2.5 2.5 0 0 0 2.5-2.5v-7M3 8.5A2.5 2.5 0 0 1 5.5 6h13A2.5 2.5 0 0 1 21 8.5M3 8.5l9 6 9-6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <div><b>אימייל</b><span>aztodev@gmail.com</span></div>
+        </div>
+        <div class="info-row">
+          <span class="icon"><svg viewBox="0 0 24 24" fill="none"><path d="M4 5c0 8.3 6.7 15 15 15l3-3.5-5-3-2 2c-2.4-1-4.5-3.1-5.5-5.5l2-2-3-5L5 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <div><b>טלפון</b><span>054-977-4827</span></div>
+        </div>
+        <div class="info-row">
+          <span class="icon"><svg viewBox="0 0 24 24" fill="none"><path d="M12 21s-7-4.35-9.5-9A5.5 5.5 0 0 1 12 6a5.5 5.5 0 0 1 9.5 6c-2.5 4.65-9.5 9-9.5 9Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></span>
+          <div><b>אזור שירות</b><span style="direction:rtl">טבריה והסביבה</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-row">
+      <div class="foot-brand">
+        <svg width="26" height="26" viewBox="0 0 40 40" fill="none"><circle cx="20" cy="20" r="19" fill="#e8cf9c"/><path d="M20 11c-3.6 0-6 1.8-6 5.4 0 2.7 1.2 4.4 1.7 6.9.4 2.1.5 5.7 2.4 5.7.9 0 1.1-1.7 1.3-3.3.2-1.5.3-2.9 1-2.9.7 0 .8 1.4 1 2.9.2 1.6.4 3.3 1.3 3.3 1.9 0 2-3.6 2.4-5.7.5-2.5 1.7-4.2 1.7-6.9 0-3.6-2.4-5.4-6-5.4Z" fill="#0e3b32"/></svg>
+        יניב לוי | רפואת שיניים
+      </div>
+      <small>© 2026 כל הזכויות שמורות</small>
+    </div>
+    <div class="foot-note">דף זה נבנה כהדגמה. השמות, התיאורים וההמלצות המופיעים בו הם לצורכי המחשה בלבד.</div>
+  </div>
+</footer>
+
+</body>
+</html>
