@@ -65,7 +65,52 @@
   .btn-outline{border-color:rgba(250,246,239,.5);color:var(--cream)}
   .btn-outline:hover{background:rgba(250,246,239,.1)}
   .nav .btn{padding:10px 20px;font-size:14px}
-  .burger{display:none}
+  .burger{
+    display:none;width:42px;height:42px;border-radius:12px;border:1px solid var(--line);
+    background:var(--cream);align-items:center;justify-content:center;cursor:pointer;flex:none;
+  }
+  .burger svg{width:20px;height:20px;color:var(--emerald)}
+  .mobile-menu{
+    display:none;flex-direction:column;gap:2px;padding:6px 24px 18px;
+    border-top:1px solid var(--line);background:var(--cream);
+  }
+  .mobile-menu.open{display:flex}
+  .mobile-menu a{
+    padding:12px 4px;text-decoration:none;color:var(--ink);font-weight:500;font-size:15px;
+    border-bottom:1px solid var(--line);
+  }
+  .mobile-menu a:last-child{border-bottom:none}
+
+  /* ---------- reveal on scroll ---------- */
+  .reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease}
+  .reveal.in{opacity:1;transform:none}
+
+  /* ---------- whatsapp fab ---------- */
+  .wa-fab{
+    position:fixed;left:20px;bottom:20px;z-index:60;
+    width:58px;height:58px;border-radius:50%;background:#25D366;
+    display:flex;align-items:center;justify-content:center;
+    box-shadow:0 10px 26px rgba(0,0,0,.28);text-decoration:none;
+  }
+  .wa-fab svg{width:30px;height:30px}
+  .wa-fab:hover{transform:scale(1.06)}
+
+  /* ---------- faq ---------- */
+  .faq{background:var(--cream-2)}
+  .faq-list{display:grid;gap:14px;max-width:760px;margin:0 auto}
+  .faq-item{
+    background:var(--cream);border:1px solid var(--line);border-radius:14px;padding:6px 22px;
+  }
+  .faq-item summary{
+    cursor:pointer;padding:16px 0;font-weight:600;font-size:16px;list-style:none;
+    display:flex;align-items:center;justify-content:space-between;gap:16px;
+  }
+  .faq-item summary::-webkit-details-marker{display:none}
+  .faq-item summary::after{
+    content:"+";font-size:22px;color:var(--gold);font-weight:400;flex:none;transition:transform .2s;
+  }
+  .faq-item[open] summary::after{transform:rotate(45deg)}
+  .faq-item p{margin:0 0 18px;color:var(--muted);font-size:15px}
 
   /* ---------- hero ---------- */
   .hero{
@@ -93,10 +138,10 @@
   .hero-art{position:relative}
   .card-photo{
     background:linear-gradient(155deg,#f5efe2,#e9dfc9);
-    border-radius:24px;padding:26px;box-shadow:var(--shadow);
+    border-radius:24px;padding:14px;box-shadow:var(--shadow);
     transform:rotate(-1.2deg);
   }
-  .card-photo svg{width:100%;height:auto;border-radius:16px}
+  .card-photo img{width:100%;height:340px;object-fit:cover;border-radius:16px}
   .float-card{
     position:absolute;background:var(--cream);border-radius:16px;padding:14px 18px;
     box-shadow:0 14px 34px rgba(14,59,50,.22);display:flex;align-items:center;gap:12px;
@@ -117,9 +162,9 @@
   .about{background:var(--cream)}
   .about-grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:60px;align-items:center}
   .about-portrait{
-    background:var(--emerald);border-radius:24px;padding:22px;box-shadow:var(--shadow);
+    background:var(--emerald);border-radius:24px;padding:14px;box-shadow:var(--shadow);
   }
-  .about-portrait svg{border-radius:16px}
+  .about-portrait img{width:100%;height:460px;object-fit:cover;border-radius:16px}
   .creds{list-style:none;margin:26px 0 0;padding:0;display:grid;gap:16px}
   .creds li{display:flex;gap:14px;align-items:flex-start}
   .creds .icon{
@@ -147,17 +192,15 @@
   .svc-card h3{font-size:20px;margin:0 0 10px}
   .svc-card p{color:var(--muted);font-size:15px;margin:0}
 
-  /* ---------- gallery (illustrative, not literal photos) ---------- */
+  /* ---------- gallery ---------- */
   .gallery{background:var(--cream)}
-  .gal-note{
-    text-align:center;color:var(--muted);font-size:14px;margin-top:-30px;margin-bottom:50px;
-  }
   .gal-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
   .gal-tile{
     aspect-ratio:1/1.05;border-radius:16px;overflow:hidden;position:relative;
     box-shadow:0 10px 24px rgba(14,59,50,.10);
   }
-  .gal-tile svg{width:100%;height:100%}
+  .gal-tile img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
+  .gal-tile:hover img{transform:scale(1.06)}
   .gal-tile .cap{
     position:absolute;inset-inline:0;bottom:0;padding:12px 14px;
     background:linear-gradient(to top, rgba(14,59,50,.82), transparent);
@@ -230,6 +273,7 @@
     .testi-grid{grid-template-columns:1fr}
     .contact-card{grid-template-columns:1fr;padding:34px}
     .nav-links{display:none}
+    .burger{display:flex}
   }
   @media (max-width:560px){
     .svc-grid{grid-template-columns:1fr}
@@ -255,10 +299,22 @@
       <a href="#services">התמחויות</a>
       <a href="#gallery">העבודה שלנו</a>
       <a href="#testimonials">המלצות</a>
+      <a href="#faq">שאלות נפוצות</a>
       <a href="#contact">יצירת קשר</a>
     </nav>
     <a class="btn btn-gold" href="#contact">קביעת תור</a>
+    <button class="burger" id="burgerBtn" aria-label="פתיחת תפריט" aria-expanded="false" aria-controls="mobileMenu">
+      <svg viewBox="0 0 24 24" fill="none"><path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+    </button>
   </div>
+  <nav class="mobile-menu" id="mobileMenu">
+    <a href="#about">אודות</a>
+    <a href="#services">התמחויות</a>
+    <a href="#gallery">העבודה שלנו</a>
+    <a href="#testimonials">המלצות</a>
+    <a href="#faq">שאלות נפוצות</a>
+    <a href="#contact">יצירת קשר</a>
+  </nav>
 </header>
 
 <section class="hero">
@@ -279,21 +335,7 @@
     </div>
     <div class="hero-art">
       <div class="card-photo">
-        <svg viewBox="0 0 460 340" xmlns="http://www.w3.org/2000/svg">
-          <rect width="460" height="340" rx="14" fill="#f6f1e4"/>
-          <rect x="24" y="24" width="412" height="292" rx="10" fill="#eee6d3"/>
-          <circle cx="150" cy="150" r="70" fill="#0e3b32"/>
-          <path d="M150 118c-15 0-25 8-25 23 0 11 5 18 7 29 2 9 2 24 10 24 4 0 5-7 5-14 0-6 1-12 3-12s3 6 3 12c0 7 1 14 5 14 8 0 8-15 10-24 2-11 7-18 7-29 0-15-10-23-25-23Z" fill="#e8cf9c"/>
-          <rect x="250" y="70" width="150" height="14" rx="7" fill="#c6a15b" opacity=".55"/>
-          <rect x="250" y="98" width="110" height="10" rx="5" fill="#0e3b32" opacity=".35"/>
-          <rect x="250" y="150" width="150" height="90" rx="12" fill="#ffffff" stroke="#e3d8bd" stroke-width="2"/>
-          <circle cx="278" cy="176" r="10" fill="#0e3b32"/>
-          <rect x="298" y="170" width="90" height="8" rx="4" fill="#c6a15b"/>
-          <rect x="298" y="186" width="70" height="6" rx="3" fill="#d8cfb8"/>
-          <circle cx="278" cy="212" r="10" fill="#c6a15b"/>
-          <rect x="298" y="206" width="90" height="8" rx="4" fill="#0e3b32" opacity=".7"/>
-          <rect x="298" y="222" width="55" height="6" rx="3" fill="#d8cfb8"/>
-        </svg>
+        <img src="images/hero.jpg" width="1408" height="768" alt="חדר טיפולים מעוצב בקליניקה של ד״ר יניב לוי" loading="eager" fetchpriority="high">
       </div>
       <div class="float-card float-1">
         <span class="dot"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3 3 8v5c0 5 4 8 9 10 5-2 9-5 9-10V8l-9-5Z" stroke="#0e3b32" stroke-width="1.6"/></svg></span>
@@ -309,16 +351,8 @@
 
 <section class="about" id="about">
   <div class="wrap about-grid">
-    <div class="about-portrait">
-      <svg viewBox="0 0 380 460" xmlns="http://www.w3.org/2000/svg">
-        <rect width="380" height="460" rx="16" fill="#123e34"/>
-        <circle cx="190" cy="180" r="86" fill="#f6f1e4"/>
-        <path d="M190 132c-19 0-32 10-32 30 0 15 6 24 9 38 3 12 3 31 13 31 5 0 6-9 7-19 1-8 2-16 4-16s3 8 4 16c1 10 2 19 7 19 10 0 10-19 13-31 3-14 9-23 9-38 0-20-13-30-32-30Z" fill="#0e3b32"/>
-        <rect x="90" y="300" width="200" height="120" rx="14" fill="#e8cf9c" opacity=".18"/>
-        <rect x="120" y="330" width="140" height="12" rx="6" fill="#e8cf9c"/>
-        <rect x="120" y="356" width="100" height="9" rx="4.5" fill="#f6f1e4" opacity=".7"/>
-        <rect x="120" y="378" width="120" height="9" rx="4.5" fill="#f6f1e4" opacity=".45"/>
-      </svg>
+    <div class="about-portrait reveal">
+      <img src="images/about.jpg" width="1408" height="768" alt="טיפול שיניים מדויק ורגיש בקליניקה" loading="lazy">
     </div>
     <div>
       <span class="eyebrow">אודות ד״ר יניב</span>
@@ -395,45 +429,23 @@
       <h2 class="serif">רגעים מהקליניקה</h2>
     </div>
     <div class="gal-grid">
-      <div class="gal-tile">
-        <svg viewBox="0 0 200 210" xmlns="http://www.w3.org/2000/svg">
-          <rect width="200" height="210" fill="#0e3b32"/>
-          <circle cx="100" cy="90" r="52" fill="#e8cf9c" opacity=".9"/>
-          <path d="M100 62c-11 0-18 6-18 16 0 8 3 13 5 20 2 6 2 17 7 17s3-9 4-16c1-4 1-8 2-8s1 4 2 8c1 7 0 16 4 16 5 0 5-11 7-17 2-7 5-12 5-20 0-10-7-16-18-16Z" fill="#0e3b32"/>
-          <rect x="0" y="168" width="200" height="42" fill="#123e34"/>
-        </svg>
+      <div class="gal-tile reveal">
+        <img src="images/gallery-room.jpg" width="1408" height="768" alt="חדר טיפולים בעיצוב בוטיק" loading="lazy">
         <div class="cap">חדר טיפולים</div>
       </div>
-      <div class="gal-tile">
-        <svg viewBox="0 0 200 210" xmlns="http://www.w3.org/2000/svg">
-          <rect width="200" height="210" fill="#c6a15b"/>
-          <rect x="30" y="40" width="140" height="90" rx="10" fill="#faf6ef"/>
-          <circle cx="70" cy="85" r="16" fill="#0e3b32"/>
-          <rect x="96" y="72" width="60" height="10" rx="5" fill="#0e3b32" opacity=".6"/>
-          <rect x="96" y="90" width="44" height="8" rx="4" fill="#0e3b32" opacity=".35"/>
-          <rect x="0" y="150" width="200" height="60" fill="#8a6c33"/>
-        </svg>
-        <div class="cap">ציוד מתקדם</div>
+      <div class="gal-tile reveal">
+        <img src="images/gallery-equipment.jpg" width="1408" height="768" alt="ציוד וכלים דנטליים מתקדמים וסטריליים" loading="lazy">
+        <div class="cap">ציוד מתקדם וסטריליזציה</div>
       </div>
-      <div class="gal-tile">
-        <svg viewBox="0 0 200 210" xmlns="http://www.w3.org/2000/svg">
-          <rect width="200" height="210" fill="#134a3e"/>
-          <path d="M100 55c-16 0-26 9-26 26 0 12 5 19 7 30 2 9 2 25 10 25s6-13 8-23c1-6 1-11 3-11s2 5 3 11c2 10 0 23 8 23s8-16 10-25c2-11 7-18 7-30 0-17-10-26-26-26Z" fill="#e8cf9c"/>
-          <rect x="0" y="170" width="200" height="40" fill="#0e3b32"/>
-        </svg>
-        <div class="cap">עיצוב חיוך</div>
+      <div class="gal-tile reveal">
+        <img src="images/gallery-smile.jpg" width="1408" height="768" alt="חיוך בריא ומוקפד" loading="lazy">
+        <div class="cap">התוצאה — חיוך בטוח</div>
       </div>
-      <div class="gal-tile">
-        <svg viewBox="0 0 200 210" xmlns="http://www.w3.org/2000/svg">
-          <rect width="200" height="210" fill="#e8cf9c"/>
-          <circle cx="100" cy="90" r="46" fill="#0e3b32"/>
-          <path d="m78 90 14 14 30-30" stroke="#e8cf9c" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-          <rect x="0" y="160" width="200" height="50" fill="#c6a15b"/>
-        </svg>
-        <div class="cap">בקרת איכות</div>
+      <div class="gal-tile reveal">
+        <img src="images/gallery-reception.jpg" width="1408" height="768" alt="חלל קבלה מפנק בקליניקה" loading="lazy">
+        <div class="cap">חלל קבלה מפנק</div>
       </div>
     </div>
-    <p class="gal-note">האיורים שלמעלה מייצגים את אווירת הקליניקה ותחומי הטיפול — תמונות אמיתיות מהקליניקה יתווספו בהמשך.</p>
   </div>
 </section>
 
@@ -491,6 +503,33 @@
   </div>
 </section>
 
+<section class="faq" id="faq">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">שאלות נפוצות</span>
+      <h2 class="serif">כל מה שרציתם לדעת לפני שקובעים תור</h2>
+    </div>
+    <div class="faq-list">
+      <details class="faq-item">
+        <summary>האם ההגעה לייעוץ הראשון כרוכה בהתחייבות?</summary>
+        <p>לא. פגישת הייעוץ הראשונה היא ללא התחייבות — בודקים יחד את המצב, מסבירים את האפשרויות ובונים תוכנית טיפול מותאמת אישית, ורק אז מחליטים איך ממשיכים.</p>
+      </details>
+      <details class="faq-item">
+        <summary>איך בונים את המחיר של הטיפול?</summary>
+        <p>כל תוכנית טיפול מתומחרת בשקיפות מלאה מראש, בלי הפתעות באמצע הדרך. מקבלים הצעת מחיר כתובה וברורה לפני שמתחילים.</p>
+      </details>
+      <details class="faq-item">
+        <summary>מטפלים גם בילדים ובמטופלים חרדתיים?</summary>
+        <p>כן. הקליניקה בנויה לגישה סבלנית ורגועה — גם למשפחות עם ילדים וגם למי שמגיע עם חשש מטיפולי שיניים.</p>
+      </details>
+      <details class="faq-item">
+        <summary>יש זמינות בשעות ערב?</summary>
+        <p>כן, יש שעות קבלה גם בערב לנוחות מי שעובד/ת במהלך היום. לתיאום מדויק — פנו בטלפון או בוואטסאפ ונמצא את החלון שמתאים לכם.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
 <section class="contact" id="contact">
   <div class="wrap">
     <div class="contact-card">
@@ -499,8 +538,9 @@
         <h2 class="serif">בואו נדבר על החיוך שלכם</h2>
         <p>פגישת ייעוץ ראשונה ללא התחייבות. השאירו פרטים או צרו קשר ישירות — נחזור אליכם בהקדם.</p>
         <div class="contact-actions">
-          <a class="btn btn-emerald" href="mailto:aztodev@gmail.com?subject=קביעת%20תור%20-%20ד%22ר%20יניב%20לוי">שליחת מייל</a>
+          <a class="btn btn-emerald" href="https://wa.me/972549774827?text=%D7%94%D7%99%D7%99%2C%20%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%A7%D7%91%D7%95%D7%A2%20%D7%AA%D7%95%D7%A8" target="_blank" rel="noopener">וואטסאפ</a>
           <a class="btn btn-gold" href="tel:0549774827">התקשרו עכשיו</a>
+          <a class="btn btn-outline" style="color:var(--emerald);border-color:var(--line)" href="mailto:aztodev@gmail.com?subject=קביעת%20תור%20-%20ד%22ר%20יניב%20לוי">שליחת מייל</a>
         </div>
       </div>
       <div class="contact-info">
@@ -516,10 +556,18 @@
           <span class="icon"><svg viewBox="0 0 24 24" fill="none"><path d="M12 21s-7-4.35-9.5-9A5.5 5.5 0 0 1 12 6a5.5 5.5 0 0 1 9.5 6c-2.5 4.65-9.5 9-9.5 9Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></span>
           <div><b>אזור שירות</b><span style="direction:rtl">טבריה והסביבה</span></div>
         </div>
+        <div class="info-row">
+          <span class="icon"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/><path d="M12 7v5l3.5 2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <div><b>שעות קבלה</b><span style="direction:rtl">א׳–ה׳ 9:00–19:00</span></div>
+        </div>
       </div>
     </div>
   </div>
 </section>
+
+<a class="wa-fab" href="https://wa.me/972549774827?text=%D7%94%D7%99%D7%99%2C%20%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%A7%D7%91%D7%95%D7%A2%20%D7%AA%D7%95%D7%A8" target="_blank" rel="noopener" aria-label="שליחת הודעת וואטסאפ">
+  <svg viewBox="0 0 32 32" fill="#fff"><path d="M16.02 3C9.4 3 4 8.4 4 15.02c0 2.28.62 4.4 1.72 6.24L4 29l7.94-1.66a11.9 11.9 0 0 0 4.08.72c6.62 0 12.02-5.4 12.02-12.04C28.04 8.4 22.64 3 16.02 3Zm0 21.86c-1.94 0-3.76-.55-5.3-1.5l-.38-.23-4.42.92.94-4.32-.25-.4a9.86 9.86 0 0 1-1.52-5.3c0-5.46 4.44-9.9 9.93-9.9 5.48 0 9.92 4.44 9.92 9.9 0 5.47-4.44 9.83-9.92 9.83Zm5.43-7.4c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.24-.46-2.37-1.47-.87-.78-1.46-1.74-1.63-2.04-.17-.3-.02-.46.13-.6.13-.13.3-.35.44-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.6-.91-2.2-.24-.57-.49-.5-.67-.5h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.47 0 1.46 1.06 2.87 1.21 3.07.15.2 2.09 3.2 5.07 4.48.71.3 1.26.48 1.69.62.71.22 1.36.19 1.87.12.57-.09 1.76-.72 2.01-1.42.25-.7.25-1.29.17-1.42-.07-.12-.27-.2-.57-.35Z"/></svg>
+</a>
 
 <footer>
   <div class="wrap">
@@ -530,9 +578,43 @@
       </div>
       <small>© 2026 כל הזכויות שמורות</small>
     </div>
-    <div class="foot-note">דף זה נבנה כהדגמה. השמות, התיאורים וההמלצות המופיעים בו הם לצורכי המחשה בלבד.</div>
+    <div class="foot-note">דף זה נבנה כהדגמה לקראת האתר האמיתי. השמות, התמונות, התיאורים וההמלצות המופיעים בו הם לצורכי המחשה בלבד ויוחלפו בתוכן האמיתי של הקליניקה.</div>
   </div>
 </footer>
+
+<script>
+  (function () {
+    var burger = document.getElementById('burgerBtn');
+    var menu = document.getElementById('mobileMenu');
+    if (burger && menu) {
+      burger.addEventListener('click', function () {
+        var open = menu.classList.toggle('open');
+        burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+      });
+      menu.querySelectorAll('a').forEach(function (a) {
+        a.addEventListener('click', function () {
+          menu.classList.remove('open');
+          burger.setAttribute('aria-expanded', 'false');
+        });
+      });
+    }
+
+    var reveals = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window && reveals.length) {
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('in');
+            io.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.15 });
+      reveals.forEach(function (el) { io.observe(el); });
+    } else {
+      reveals.forEach(function (el) { el.classList.add('in'); });
+    }
+  })();
+</script>
 
 </body>
 </html>
