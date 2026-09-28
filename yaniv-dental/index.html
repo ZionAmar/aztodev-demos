@@ -80,6 +80,12 @@
     border-bottom:1px solid var(--line);
   }
   .mobile-menu a:last-child{border-bottom:none}
+  .mobile-menu a.mobile-menu-cta{
+    display:none;margin:4px 0 12px;text-align:center;padding:12px;
+    border-radius:999px;font-weight:600;
+    background:linear-gradient(135deg,var(--gold-2),var(--gold));color:var(--emerald);
+    border-bottom:none;
+  }
 
   /* ---------- reveal on scroll ---------- */
   .reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease}
@@ -275,11 +281,25 @@
     .nav-links{display:none}
     .burger{display:flex}
   }
+  /* below this the header CTA + burger + brand no longer fit one row */
+  @media (max-width:640px){
+    .nav-row .btn.btn-gold{display:none}
+    .mobile-menu a.mobile-menu-cta{display:block}
+  }
   @media (max-width:560px){
+    .wrap{padding:0 18px}
     .svc-grid{grid-template-columns:1fr}
     .gal-grid{grid-template-columns:1fr 1fr}
     section{padding:64px 0}
     .hero{padding:110px 0 90px}
+    .contact-card{padding:26px}
+    .hero-badges{gap:18px}
+  }
+  @media (max-width:380px){
+    .gal-grid{grid-template-columns:1fr}
+    .nav-row{padding:14px 16px}
+    .brand{font-size:17px}
+    .brand .mark{width:28px;height:28px}
   }
 </style>
 </head>
@@ -308,6 +328,7 @@
     </button>
   </div>
   <nav class="mobile-menu" id="mobileMenu">
+    <a class="mobile-menu-cta" href="booking.html">קביעת תור</a>
     <a href="#about">אודות</a>
     <a href="#services">התמחויות</a>
     <a href="#gallery">העבודה שלנו</a>

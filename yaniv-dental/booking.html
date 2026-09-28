@@ -131,7 +131,7 @@
   label{font-size:13.5px;font-weight:600;color:var(--muted);display:block;margin-bottom:6px}
   input,textarea{
     width:100%;border:1.5px solid var(--line);border-radius:12px;padding:12px 14px;
-    font-family:"Heebo",sans-serif;font-size:15px;background:var(--cream);color:var(--ink);
+    font-family:"Heebo",sans-serif;font-size:16px;background:var(--cream);color:var(--ink);
   }
   input:focus,textarea:focus{outline:none;border-color:var(--gold)}
   textarea{resize:vertical;min-height:80px}
@@ -169,6 +169,22 @@
   .note-box svg{width:18px;height:18px;flex:none;margin-top:1px;color:var(--gold)}
 
   footer{background:var(--emerald);color:rgba(250,246,239,.55);padding:26px 0;text-align:center;font-size:12.5px}
+
+  @media (max-width:400px){
+    .nav-row{padding:14px 16px}
+    .brand{font-size:16px}
+    .brand .mark{width:26px;height:26px}
+    .back{font-size:0}
+    .back svg{width:20px;height:20px}
+  }
+  @media (max-width:640px){
+    .panel{padding:22px 16px;margin-top:-28px;border-radius:18px}
+    .day-grid{gap:6px}
+    .day-card{padding:12px 4px}
+    .day-card .num{font-size:21px}
+    .actions-row{gap:10px}
+    .actions-row .btn{flex:1;justify-content:center}
+  }
 </style>
 </head>
 <body>
@@ -256,6 +272,8 @@
           <label for="fNote">הערה קצרה (לא חובה)</label>
           <textarea id="fNote" name="note" placeholder="למשל: כאב שן, מגיע/ה לראשונה, יש חשש מטיפולים..."></textarea>
         </div>
+        <input type="text" id="fHp" name="hp" autocomplete="off" tabindex="-1" aria-hidden="true"
+          style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
         <div class="actions-row">
           <button type="button" class="btn btn-ghost" id="backTo2">חזרה לבחירת שעה</button>
           <button type="submit" class="btn btn-gold" id="submitBtn">שליחת בקשת התור</button>
@@ -267,8 +285,8 @@
     <div class="stage" id="stage4">
       <div class="success">
         <div class="check"><svg viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-        <h2 class="serif">הבקשה מוכנה לשליחה!</h2>
-        <p>פתחנו עבורכם הודעת מייל מוכנה ליניב עם כל הפרטים — צריך רק לאשר שליחה בתוכנת המייל שנפתחה (או באפליקציה בנייד).</p>
+        <h2 class="serif" id="successTitle">הבקשה נשלחה!</h2>
+        <p id="successText">הבקשה נשלחה אוטומטית ליניב עם כל הפרטים.</p>
         <div class="card" id="successCard"></div>
         <div class="actions-row" style="justify-content:center">
           <a class="btn btn-gold" id="addToCalendar" download="appointment.ics">הוספה ליומן שלי</a>
@@ -292,11 +310,13 @@
 
   var CLINIC_EMAIL = "aztodev@gmail.com";
   var CLINIC_NAME = 'ד"ר יניב לוי';
+  var BOOKING_ENDPOINT = "https://aztodev.com/aztodev-booking.php";
   var OPEN_DAYS = [0, 1, 2, 3, 4]; // Sunday .. Thursday
   var OPEN_HOUR = 9, CLOSE_HOUR = 19, SLOT_MIN = 30;
   var DOW = ["ראשון", "שני", "שלישי", "רביעי", "חמישי", "שישי", "שבת"];
   var MON = ["ינואר", "פברואר", "מרץ", "אפריל", "מאי", "יוני", "יולי", "אוגוסט", "ספטמבר", "אוקטובר", "נובמבר", "דצמבר"];
 
+  var pageLoadedAt = Date.now();
   var state = { weekOffset: 0, date: null, time: null };
 
   var stages = document.querySelectorAll(".stage");
@@ -437,6 +457,7 @@
     var name = document.getElementById("fName").value.trim();
     var phone = document.getElementById("fPhone").value.trim();
     var note = document.getElementById("fNote").value.trim();
+    var hp = document.getElementById("fHp").value;
     if (!name || !phone || !state.date || !state.time) return;
 
     var dateStr = "יום " + DOW[state.date.getDay()] + ", " + state.date.getDate() + " ב" + MON[state.date.getMonth()] + " " + state.date.getFullYear();
@@ -463,8 +484,52 @@
     var link = document.getElementById("addToCalendar");
     link.href = "data:text/calendar;charset=utf-8," + encodeURIComponent(ics);
 
-    goStage(4);
-    window.location.href = mailto;
+    // Try the real, automatic path first (the server that mails Yaniv on its
+    // own — see T-mulcjkhk-h67ik). It has no route until ציון approves the
+    // ChemiCloud deploy, so a network/CORS/404 failure here is the honest,
+    // expected fallback, not a bug: we never claim "sent automatically"
+    // unless the server itself said so.
+    var submitBtn = document.getElementById("submitBtn");
+    submitBtn.disabled = true;
+
+    function showManualFallback() {
+      document.getElementById("successTitle").textContent = "הבקשה מוכנה לשליחה!";
+      document.getElementById("successText").textContent =
+        "פתחנו עבורכם הודעת מייל מוכנה ליניב עם כל הפרטים — צריך רק לאשר שליחה בתוכנת המייל שנפתחה (או באפליקציה בנייד).";
+      goStage(4);
+      submitBtn.disabled = false;
+      window.location.href = mailto;
+    }
+    function showAutoSent() {
+      document.getElementById("successTitle").textContent = "הבקשה נשלחה!";
+      document.getElementById("successText").textContent = "הבקשה נשלחה אוטומטית ליניב עם כל הפרטים.";
+      goStage(4);
+      submitBtn.disabled = false;
+    }
+
+    var ctrl = ("AbortController" in window) ? new AbortController() : null;
+    var timer = setTimeout(function () { if (ctrl) ctrl.abort(); }, 8000);
+
+    fetch(BOOKING_ENDPOINT, {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      signal: ctrl ? ctrl.signal : undefined,
+      body: JSON.stringify({
+        name: name, phone: phone,
+        date: dateKey(state.date), time: state.time, note: note,
+        hp: hp, elapsedMs: Date.now() - pageLoadedAt,
+      }),
+    }).then(function (res) {
+      clearTimeout(timer);
+      if (!res.ok) return showManualFallback();
+      return res.json().then(function (j) {
+        if (j && j.ok === true && j.sent === true) showAutoSent();
+        else showManualFallback();
+      }, showManualFallback);
+    }).catch(function () {
+      clearTimeout(timer);
+      showManualFallback();
+    });
   });
 
   renderDayGrid();
