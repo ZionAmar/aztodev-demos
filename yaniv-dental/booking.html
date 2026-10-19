@@ -310,7 +310,10 @@
 
   var CLINIC_EMAIL = "aztodev@gmail.com";
   var CLINIC_NAME = 'ד"ר יניב לוי';
-  var BOOKING_ENDPOINT = "https://aztodev.com/aztodev-booking.php";
+  // Placeholder — the real path depends on how the Node.js App is created in
+  // cPanel (it assigns the subdomain/path). Update this the day it is deployed;
+  // until then every request 404s and the mailto: fallback below is what runs.
+  var BOOKING_ENDPOINT = "https://aztodev.com/yaniv-booking/api/book";
   var OPEN_DAYS = [0, 1, 2, 3, 4]; // Sunday .. Thursday
   var OPEN_HOUR = 9, CLOSE_HOUR = 19, SLOT_MIN = 30;
   var DOW = ["ראשון", "שני", "שלישי", "רביעי", "חמישי", "שישי", "שבת"];
@@ -513,9 +516,9 @@
       submitBtn.disabled = false;
       openMailto(mailto);
     }
-    function showAutoSent() {
-      document.getElementById("successTitle").textContent = "הבקשה נשלחה!";
-      document.getElementById("successText").textContent = "הבקשה נשלחה אוטומטית ליניב עם כל הפרטים.";
+    function showSaved() {
+      document.getElementById("successTitle").textContent = "הבקשה התקבלה!";
+      document.getElementById("successText").textContent = "הבקשה נשמרה במערכת של ד\"ר יניב לוי עם כל הפרטים.";
       goStage(4);
       submitBtn.disabled = false;
     }
@@ -536,7 +539,7 @@
       clearTimeout(timer);
       if (!res.ok) return showManualFallback();
       return res.json().then(function (j) {
-        if (j && j.ok === true && j.sent === true) showAutoSent();
+        if (j && j.ok === true && j.saved === true) showSaved();
         else showManualFallback();
       }, showManualFallback);
     }).catch(function () {
