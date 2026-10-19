@@ -294,7 +294,7 @@
         </div>
         <div class="note-box" style="margin-top:28px">
           <svg viewBox="0 0 24 24" fill="none"><path d="M12 9v4M12 17h.01M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          <span>התור מוצע ואינו סופי עד לאישור טלפוני או במייל מהקליניקה. דף זה נבנה כהדגמה — פרטי הזמינות בלוח השנה הם לצורכי המחשה.</span>
+          <span>התור מוצע ואינו סופי עד לאישור טלפוני או במייל מהקליניקה. דף זה נבנה כהדגמה.</span>
         </div>
       </div>
     </div>
@@ -314,13 +314,16 @@
   // cPanel (it assigns the subdomain/path). Update this the day it is deployed;
   // until then every request 404s and the mailto: fallback below is what runs.
   var BOOKING_ENDPOINT = "https://aztodev.com/yaniv-booking/api/book";
+  var SLOTS_ENDPOINT = "https://aztodev.com/yaniv-booking/api/slots";
   var OPEN_DAYS = [0, 1, 2, 3, 4]; // Sunday .. Thursday
   var OPEN_HOUR = 9, CLOSE_HOUR = 19, SLOT_MIN = 30;
   var DOW = ["ראשון", "שני", "שלישי", "רביעי", "חמישי", "שישי", "שבת"];
   var MON = ["ינואר", "פברואר", "מרץ", "אפריל", "מאי", "יוני", "יולי", "אוגוסט", "ספטמבר", "אוקטובר", "נובמבר", "דצמבר"];
 
   var pageLoadedAt = Date.now();
-  var state = { weekOffset: 0, date: null, time: null };
+  // taken: the times the server says are held on state.date. null = not
+  // known yet (loading) or the server could not be asked — never guessed.
+  var state = { weekOffset: 0, date: null, time: null, taken: null, slotsError: false };
 
   var stages = document.querySelectorAll(".stage");
   var stepEls = document.querySelectorAll(".step");
@@ -337,13 +340,6 @@
 
   function fmt2(n) { return n < 10 ? "0" + n : "" + n; }
   function dateKey(d) { return d.getFullYear() + "-" + fmt2(d.getMonth() + 1) + "-" + fmt2(d.getDate()); }
-
-  /** deterministic pseudo-random per day+slot, so refreshing the page keeps the same "taken" slots */
-  function seedRandom(str) {
-    var h = 0;
-    for (var i = 0; i < str.length; i++) { h = (h << 5) - h + str.charCodeAt(i); h |= 0; }
-    return function () { h = (h * 1103515245 + 12345) & 0x7fffffff; return (h % 1000) / 1000; };
-  }
 
   function nextOpenDays(count, weekOffset) {
     var days = [];
@@ -374,7 +370,7 @@
         state.date = d;
         state.time = null;
         renderDayGrid();
-        renderSlots();
+        loadSlots();
         goStage(2);
       });
       grid.appendChild(card);
@@ -385,23 +381,56 @@
     document.getElementById("weekPrev").disabled = state.weekOffset <= 0;
   }
 
+  // 2026-10-19: "taken" used to be a seeded random (38% of slots), so real
+  // free hours looked blocked and a real booking never showed. It is now
+  // exactly what the server holds for that date — nothing else marks a slot.
   function slotsForDate(d) {
-    var rnd = seedRandom(dateKey(d));
+    var taken = state.taken || [];
     var slots = [];
     for (var h = OPEN_HOUR; h < CLOSE_HOUR; h++) {
       for (var m = 0; m < 60; m += SLOT_MIN) {
-        slots.push({ label: fmt2(h) + ":" + fmt2(m), taken: rnd() < 0.38 });
+        var label = fmt2(h) + ":" + fmt2(m);
+        slots.push({ label: label, taken: taken.indexOf(label) !== -1 });
       }
     }
     return slots;
   }
 
-  function renderSlots() {
+  function loadSlots(notice) {
+    if (!state.date) return;
+    var forDate = dateKey(state.date);
+    state.taken = null;
+    state.slotsError = false;
+    renderSlots(notice);
+    fetch(SLOTS_ENDPOINT + "?date=" + encodeURIComponent(forDate), { cache: "no-store" })
+      .then(function (res) { if (!res.ok) throw new Error("HTTP " + res.status); return res.json(); })
+      .then(function (j) {
+        if (!state.date || dateKey(state.date) !== forDate) return; // the visitor moved on
+        if (!j || j.ok !== true || !Array.isArray(j.taken)) throw new Error("bad answer");
+        state.taken = j.taken;
+        renderSlots(notice);
+      })
+      .catch(function () {
+        if (!state.date || dateKey(state.date) !== forDate) return;
+        // Say we could not check. Showing every slot as free would be a claim
+        // we cannot back; the server still refuses a taken slot on submit.
+        state.taken = [];
+        state.slotsError = true;
+        renderSlots(notice);
+      });
+  }
+
+  function renderSlots(notice) {
     if (!state.date) return;
     var sub = document.getElementById("stage2Sub");
-    sub.textContent = "יום " + DOW[state.date.getDay()] + ", " + state.date.getDate() + " ב" + MON[state.date.getMonth()];
+    var line = "יום " + DOW[state.date.getDay()] + ", " + state.date.getDate() + " ב" + MON[state.date.getMonth()];
+    if (notice) line = notice + " " + line;
+    if (state.taken === null) line += " — בודקים אילו שעות פנויות…";
+    else if (state.slotsError) line += " — לא הצלחנו לבדוק זמינות כרגע; אם השעה תפוסה נגיד לכם בשליחה.";
+    sub.textContent = line;
     var grid = document.getElementById("slotGrid");
     grid.innerHTML = "";
+    if (state.taken === null) return;
     slotsForDate(state.date).forEach(function (s) {
       var el = document.createElement("div");
       el.className = "slot" + (s.taken ? " taken" : "") + (state.time === s.label ? " selected" : "");
@@ -537,6 +566,16 @@
       }),
     }).then(function (res) {
       clearTimeout(timer);
+      // 409 = the server already holds this date+time. Until 2026-10-19 this
+      // fell into the mailto fallback and the page said «הבקשה מוכנה לשליחה!»,
+      // so a double booking looked accepted. Send them back to pick again.
+      if (res.status === 409) {
+        submitBtn.disabled = false;
+        state.time = null;
+        loadSlots("השעה שבחרתם כבר נתפסה — בחרו שעה אחרת.");
+        goStage(2);
+        return;
+      }
       if (!res.ok) return showManualFallback();
       return res.json().then(function (j) {
         if (j && j.ok === true && j.saved === true) showSaved();
