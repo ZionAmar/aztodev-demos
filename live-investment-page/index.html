@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>דף השקעות — נתונים ודעות</title>
+<meta name="robots" content="noindex, nofollow" />
+<style>
+  :root{
+    --bg:#f7f7f8; --card:#ffffff; --ink:#1b1d22; --sub:#5b6270; --line:#e2e4e8;
+    --warn-bg:#fff7e6; --warn-line:#f0c36d; --warn:#7a5500;
+    --evid-bg:#eef3fb; --evid-line:#c8d7ef;
+    --focus:#2457c5;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#14161b; --card:#1d2027; --ink:#eef0f4; --sub:#a7acb8; --line:#2b2f38;
+      --warn-bg:#2b230f; --warn-line:#8a6a24; --warn:#f0c878;
+      --evid-bg:#17202f; --evid-line:#2b4066;
+      --focus:#7fa6ff;
+    }
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;background:var(--bg);color:var(--ink);}
+  body{
+    font-family:"Segoe UI","Noto Sans Hebrew",Arial,sans-serif;
+    line-height:1.55; padding:0 16px 48px; max-width:760px; margin:0 auto;
+  }
+  a{color:var(--focus);}
+  :focus-visible{outline:2px solid var(--focus); outline-offset:2px;}
+  .disclaimer{
+    background:var(--warn-bg); border:1px solid var(--warn-line); color:var(--warn);
+    border-radius:10px; padding:12px 14px; margin:16px 0; font-size:.95rem;
+  }
+  h1{font-size:1.3rem; margin:8px 0 2px;}
+  .updated{color:var(--sub); font-size:.85rem; margin-bottom:4px;}
+  .howto{color:var(--sub); font-size:.9rem; margin:4px 0 20px;}
+  .card{
+    background:var(--card); border:1px solid var(--line); border-radius:12px;
+    margin-bottom:12px; overflow:hidden;
+  }
+  .card > button{
+    width:100%; text-align:right; background:none; border:0; color:var(--ink);
+    font-family:inherit; cursor:pointer; padding:14px 16px; min-height:56px;
+    display:flex; flex-direction:column; gap:4px;
+  }
+  .card > button:hover{background:rgba(127,127,127,.06);}
+  .row1{display:flex; justify-content:space-between; align-items:center; width:100%;}
+  .row1 .title{font-weight:600; font-size:1.05rem;}
+  .toggle{font-size:1rem; color:var(--sub);}
+  .headline{font-size:.95rem;}
+  .plain{color:var(--sub); font-size:.88rem;}
+  .meta{color:var(--sub); font-size:.8rem;}
+  .panel{padding:0 16px 16px; border-top:1px solid var(--line);}
+  .panel[hidden]{display:none;}
+  .kv{display:grid; grid-template-columns:1fr; gap:6px; margin:12px 0; font-size:.9rem;}
+  .kv .k{color:var(--sub);}
+  .empty{
+    background:var(--evid-bg); border:1px solid var(--evid-line); border-radius:8px;
+    padding:10px 12px; font-size:.88rem; margin:10px 0;
+  }
+  .local-disclaimer{color:var(--sub); font-size:.78rem; margin-top:10px;}
+  footer{margin-top:28px; border-top:1px solid var(--line); padding-top:14px;}
+  footer .disclaimer{margin-top:10px;}
+  .src-link{font-size:.82rem;}
+</style>
+</head>
+<body>
+
+  <div class="disclaimer" role="note">
+    המידע בדף הזה כללי, להבנה בלבד — הוא לא ייעוץ השקעות, לא ייעוץ מוסמך ולא המלצה לפעולה.
+    הדעות הן של חברי הצוות באופן אישי, לא של גוף מוסמך. יש גם סיכון הפסד, לא רק רווח.
+    לפני כל החלטה כספית — פנו ליועץ מוסמך.
+  </div>
+
+  <h1>דף השקעות — נתונים ודעות</h1>
+  <p class="updated" id="updated-line">גרסה ראשונה — עדיין בלי נתונים חיים ובלי דעות צוות (ראו למטה למה)</p>
+  <p class="howto">כל אזור נסגר כברירת מחדל. לחצו על כותרת אזור כדי לפתוח אותו ולראות את הפירוט.</p>
+
+  <main id="areas"></main>
+
+  <footer>
+    <p style="font-size:.85rem;color:var(--sub);">
+      הדף בנוי לפי התוכנית של אילן (<code>T-mwsuqb0j-78bh7</code>), מפרט ה-UX של הגר וסקופ עמית.
+      המטרה: כל מספר יישלף בדפדפן שלכם בזמן אמת, עם מקור וקישור, ולעולם לא מספר שהומצא.
+    </p>
+    <div class="disclaimer">
+      המידע בדף הזה כללי, להבנה בלבד — הוא לא ייעוץ השקעות ולא המלצה לפעולה. יש גם סיכון הפסד.
+    </div>
+  </footer>
+
+<script>
+(function(){
+  "use strict";
+  // Every area today is intentionally empty: no source has been confirmed to
+  // allow a browser fetch (CORS), and no team opinions have been written yet
+  // for this version of the page. Showing "not loaded" is the honest state —
+  // never a number nobody fetched, never an opinion nobody wrote.
+  var AREAS = [
+    {
+      id: "interest",
+      title: "ריבית",
+      plain: "ריבית = כמה עולה לקחת הלוואה, ומה מקבלים על חיסכון. ריבית בנק מרכזי משפיעה על שתיהן.",
+      candidateSource: { name: "בנק ישראל — נתוני ריבית (SDMX)", url: "https://edge.boi.org.il" }
+    },
+    {
+      id: "fx",
+      title: "מט\"ח",
+      plain: "שער החליפין קובע כמה שקלים צריך כדי לקנות דולר או יורו.",
+      candidateSource: { name: "Frankfurter (ECB)", url: "https://www.frankfurter.app" }
+    },
+    {
+      id: "indices",
+      title: "מדדי מניות וקרנות סל",
+      plain: "מדד הוא מספר שמסכם איך קבוצת מניות גדולה מתנהגת, כמו ת\"א-35 או S&P 500.",
+      candidateSource: { name: "— טרם נמצא מקור פתוח מהדפדפן", url: "" }
+    },
+    {
+      id: "inflation",
+      title: "אינפלציה",
+      plain: "אינפלציה היא כמה המחירים עולים בממוצע עם הזמן, ונמדדת במדד המחירים לצרכן.",
+      candidateSource: { name: "בנק ישראל — מדד המחירים לצרכן", url: "https://edge.boi.org.il" }
+    }
+  ];
+
+  var main = document.getElementById("areas");
+
+  AREAS.forEach(function(area){
+    var card = document.createElement("div");
+    card.className = "card";
+
+    var btn = document.createElement("button");
+    btn.setAttribute("aria-expanded", "false");
+    btn.setAttribute("aria-controls", "panel-" + area.id);
+    btn.id = "btn-" + area.id;
+    btn.innerHTML =
+      '<span class="row1"><span class="title">' + area.title + '</span><span class="toggle" aria-hidden="true">+ פתחו</span></span>' +
+      '<span class="headline">אין לנו נתון לנושא הזה כרגע</span>' +
+      '<span class="plain">' + area.plain + '</span>' +
+      '<span class="meta">0 דעות צוות כרגע</span>';
+
+    var panel = document.createElement("div");
+    panel.className = "panel";
+    panel.id = "panel-" + area.id;
+    panel.setAttribute("role", "region");
+    panel.setAttribute("aria-labelledby", btn.id);
+    panel.hidden = true;
+
+    var srcHtml = area.candidateSource.url
+      ? '<a class="src-link" href="' + area.candidateSource.url + '" target="_blank" rel="noopener noreferrer">' + area.candidateSource.name + '</a>'
+      : '<span class="src-link">' + area.candidateSource.name + '</span>';
+
+    panel.innerHTML =
+      '<div class="empty">אין לנו נתון לנושא הזה כרגע. המקור המועמד: ' + srcHtml + ' — עדיין לא אושר שהוא נגיש מהדפדפן.</div>' +
+      '<div class="empty">אין עדיין דעות צוות לנושא הזה.</div>' +
+      '<p class="local-disclaimer">כשיתווספו דעות — הן יהיו דעה אישית, לא עובדה ולא ייעוץ.</p>';
+
+    btn.addEventListener("click", function(){
+      var open = btn.getAttribute("aria-expanded") === "true";
+      // accordion: close every other panel first
+      document.querySelectorAll("#areas button").forEach(function(b){
+        if (b !== btn){
+          b.setAttribute("aria-expanded", "false");
+          document.getElementById(b.getAttribute("aria-controls")).hidden = true;
+        }
+      });
+      btn.setAttribute("aria-expanded", String(!open));
+      panel.hidden = open;
+    });
+
+    card.appendChild(btn);
+    card.appendChild(panel);
+    main.appendChild(card);
+  });
+
+  document.getElementById("updated-line").textContent =
+    "נבנה " + new Date().toLocaleString("he-IL", { timeZone: "Asia/Jerusalem" });
+})();
+</script>
+</body>
+</html>
