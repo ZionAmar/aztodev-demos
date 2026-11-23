@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="he" dir="rtl"><meta charset="utf-8"><title>CORS probe</title>
+<body style="font-family:system-ui;padding:16px"><h3>בדיקת מקורות מהדפדפן</h3><table id="t" border="1" cellpadding="6"></table>
+<script>
+// Each row is a REAL fetch from this browser. CORS blocked => fetch throws TypeError. Nothing is faked.
+const S=[
+["fx","frankfurter","https://api.frankfurter.dev/v1/latest?base=USD&symbols=ILS"],
+["fx","open.er-api","https://open.er-api.com/v6/latest/USD"],
+["fx+rate","BOI SDMX EXR","https://edge.boi.org.il/FusionEdgeServer/sdmx/v2/data/dataflow/BOI.STATISTICS/EXR/1.0/?c%5BDATA_TYPE%5D=OF00&c%5BBASE_CURRENCY%5D=USD&format=csv&lastNObservations=2"],
+["rate","BOI SDMX BIR","https://edge.boi.org.il/FusionEdgeServer/sdmx/v2/data/dataflow/BOI.STATISTICS/BIR/1.0/?format=csv&lastNObservations=2"],
+["rate","ECB MRR","https://data-api.ecb.europa.eu/service/data/FM/B.U2.EUR.4F.KR.MRR_FR.LEV?lastNObservations=2&format=jsondata"],
+["rate","US Treasury fiscaldata","https://api.fiscaldata.treasury.gov/services/api/fiscal_service/v2/accounting/od/avg_interest_rates?page[size]=2&sort=-record_date"],
+["rate","FRED csv","https://fred.stlouisfed.org/graph/fredgraph.csv?id=DFF"],
+["index/etf","stooq","https://stooq.com/q/l/?s=spy.us&f=sd2t2ohlcv&h&e=csv"],
+["index/etf","yahoo chart","https://query1.finance.yahoo.com/v8/finance/chart/SPY?range=5d&interval=1d"],
+["news","GDELT doc","https://api.gdeltproject.org/api/v2/doc/doc?query=israel%20economy&mode=artlist&maxrecords=2&format=json"]];
+const t=document.getElementById("t");
+for(const [d,n,u] of S){const r=t.insertRow();r.innerHTML=`<td>${d}<td>${n}<td>…`;
+ fetch(u,{mode:"cors"}).then(async x=>{const b=await x.text();r.cells[2].textContent=`CORS OK · HTTP ${x.status} · ${b.length}B · ${b.slice(0,80).replace(/\s+/g," ")}`})
+ .catch(e=>r.cells[2].textContent="CORS/רשת נדחה: "+e.message);}
+</script></body></html>
