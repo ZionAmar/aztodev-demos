@@ -1,180 +1,294 @@
 <!doctype html>
 <html lang="he" dir="rtl">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>דף השקעות — נתונים ודעות</title>
-<meta name="robots" content="noindex, nofollow" />
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>דף חי השקעות</title>
 <style>
   :root{
-    --bg:#f7f7f8; --card:#ffffff; --ink:#1b1d22; --sub:#5b6270; --line:#e2e4e8;
-    --warn-bg:#fff7e6; --warn-line:#f0c36d; --warn:#7a5500;
-    --evid-bg:#eef3fb; --evid-line:#c8d7ef;
-    --focus:#2457c5;
+    --bg:#f7f5f1; --card:#ffffff; --ink:#1c1b19; --sub:#5b574f;
+    --line:#e7e2d8; --accent:#1c6e5c; --accent-ink:#ffffff;
+    --evid:#f1f6f3; --evid-line:#bfe0d2; --warn:#8a4b12; --warn-bg:#fdf1e2; --warn-line:#f0d3a6;
   }
   @media (prefers-color-scheme: dark){
-    :root{
-      --bg:#14161b; --card:#1d2027; --ink:#eef0f4; --sub:#a7acb8; --line:#2b2f38;
-      --warn-bg:#2b230f; --warn-line:#8a6a24; --warn:#f0c878;
-      --evid-bg:#17202f; --evid-line:#2b4066;
-      --focus:#7fa6ff;
+    :root:not([data-theme="light"]){
+      --bg:#15140f; --card:#1f1d17; --ink:#f1efe8; --sub:#b9b3a5;
+      --line:#352f24; --accent:#3fae91; --accent-ink:#0c1512;
+      --evid:#17241f; --evid-line:#2a5245; --warn:#e0a35f; --warn-bg:#241c12; --warn-line:#4a3a20;
     }
   }
-  *{box-sizing:border-box;}
-  html,body{margin:0;background:var(--bg);color:var(--ink);}
+  :root[data-theme="dark"]{
+    --bg:#15140f; --card:#1f1d17; --ink:#f1efe8; --sub:#b9b3a5;
+    --line:#352f24; --accent:#3fae91; --accent-ink:#0c1512;
+    --evid:#17241f; --evid-line:#2a5245; --warn:#e0a35f; --warn-bg:#241c12; --warn-line:#4a3a20;
+  }
+  *{box-sizing:border-box}
   body{
-    font-family:"Segoe UI","Noto Sans Hebrew",Arial,sans-serif;
-    line-height:1.55; padding:0 16px 48px; max-width:760px; margin:0 auto;
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:"Segoe UI","Noto Sans Hebrew","Arial Hebrew",Arial,sans-serif;
+    line-height:1.55; padding:0 16px 48px;
   }
-  a{color:var(--focus);}
-  :focus-visible{outline:2px solid var(--focus); outline-offset:2px;}
-  .disclaimer{
-    background:var(--warn-bg); border:1px solid var(--warn-line); color:var(--warn);
-    border-radius:10px; padding:12px 14px; margin:16px 0; font-size:.95rem;
+  .wrap{max-width:760px; margin:0 auto}
+  :focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+
+  .banner{
+    margin:0 -16px; padding:14px 16px; background:var(--warn-bg); border-bottom:1px solid var(--warn-line);
+    color:var(--warn); font-size:.92rem;
   }
-  h1{font-size:1.3rem; margin:8px 0 2px;}
-  .updated{color:var(--sub); font-size:.85rem; margin-bottom:4px;}
-  .howto{color:var(--sub); font-size:.9rem; margin:4px 0 20px;}
-  .card{
-    background:var(--card); border:1px solid var(--line); border-radius:12px;
-    margin-bottom:12px; overflow:hidden;
+  .banner strong{display:block; margin-bottom:2px; color:var(--warn)}
+
+  header{padding:22px 0 14px}
+  header h1{font-size:1.5rem; margin:0 0 6px; letter-spacing:-.01em}
+  header .meta{font-size:.82rem; color:var(--sub)}
+  .howto{
+    margin:16px 0 24px; padding:14px 16px; background:var(--card); border:1px solid var(--line);
+    border-radius:10px; font-size:.9rem;
   }
-  .card > button{
-    width:100%; text-align:right; background:none; border:0; color:var(--ink);
-    font-family:inherit; cursor:pointer; padding:14px 16px; min-height:56px;
-    display:flex; flex-direction:column; gap:4px;
+  .howto h2{font-size:.88rem; margin:0 0 8px; color:var(--sub); font-weight:700}
+  .howto ol{margin:0; padding-right:1.1em}
+  .howto li{margin:0 0 6px}
+
+  details.card{
+    background:var(--card); border:1px solid var(--line); border-radius:14px;
+    margin-bottom:14px; overflow:hidden;
   }
-  .card > button:hover{background:rgba(127,127,127,.06);}
-  .row1{display:flex; justify-content:space-between; align-items:center; width:100%;}
-  .row1 .title{font-weight:600; font-size:1.05rem;}
-  .toggle{font-size:1rem; color:var(--sub);}
-  .headline{font-size:.95rem;}
-  .plain{color:var(--sub); font-size:.88rem;}
-  .meta{color:var(--sub); font-size:.8rem;}
-  .panel{padding:0 16px 16px; border-top:1px solid var(--line);}
-  .panel[hidden]{display:none;}
-  .kv{display:grid; grid-template-columns:1fr; gap:6px; margin:12px 0; font-size:.9rem;}
-  .kv .k{color:var(--sub);}
-  .empty{
-    background:var(--evid-bg); border:1px solid var(--evid-line); border-radius:8px;
-    padding:10px 12px; font-size:.88rem; margin:10px 0;
+  details.card > summary{
+    list-style:none; cursor:pointer; padding:14px 16px; min-height:56px;
+    display:flex; align-items:flex-start; justify-content:space-between; gap:10px;
   }
-  .local-disclaimer{color:var(--sub); font-size:.78rem; margin-top:10px;}
-  footer{margin-top:28px; border-top:1px solid var(--line); padding-top:14px;}
-  footer .disclaimer{margin-top:10px;}
-  .src-link{font-size:.82rem;}
+  details.card > summary::-webkit-details-marker{display:none}
+  details.card > summary:focus-visible{outline-offset:-2px}
+  .s-main{flex:1 1 auto; min-width:0}
+  .s-title{display:flex; align-items:center; justify-content:space-between; gap:10px}
+  .s-title .name{font-weight:700; font-size:1.05rem}
+  .s-toggle{
+    flex:0 0 auto; font-size:.85rem; color:var(--accent); border:1px solid var(--evid-line);
+    background:var(--evid); border-radius:8px; padding:4px 10px; min-width:44px; text-align:center;
+  }
+  details[open] .s-toggle{color:var(--sub)}
+  .s-headline{margin:8px 0 4px; font-size:.95rem}
+  .s-plain{color:var(--sub); font-size:.88rem; margin:0 0 6px}
+  .s-meta{color:var(--sub); font-size:.78rem}
+
+  .detail{padding:2px 16px 18px; border-top:1px solid var(--line)}
+  .facts{margin:14px 0; display:grid; grid-template-columns:1fr; gap:8px; font-size:.88rem}
+  @media (min-width:520px){ .facts{grid-template-columns:1fr 1fr} }
+  .facts .row b{display:block; color:var(--sub); font-size:.76rem; font-weight:700; margin-bottom:2px}
+  .facts a{color:var(--accent)}
+  .nodata{
+    background:var(--evid); border:1px solid var(--evid-line); border-radius:8px;
+    padding:10px 12px; font-size:.88rem; margin:14px 0;
+  }
+
+  .opinions h3{font-size:.92rem; margin:18px 0 10px}
+  .empty-opinions{color:var(--sub); font-size:.86rem}
+  .op{
+    background:var(--evid); border:1px solid var(--evid-line); border-radius:10px;
+    padding:10px 12px; margin-bottom:10px; font-size:.88rem;
+  }
+  .op .who{display:flex; align-items:baseline; gap:8px; flex-wrap:wrap; margin-bottom:4px}
+  .op .who .n{font-weight:700}
+  .op .who .r{color:var(--sub); font-size:.78rem}
+  .flag{
+    display:inline-block; font-size:.74rem; color:var(--warn); background:var(--warn-bg);
+    border:1px solid var(--warn-line); border-radius:6px; padding:2px 7px; margin:0 0 6px;
+  }
+  .op .h{font-weight:600; margin:0 0 4px}
+  .op .rat{margin:0 0 8px}
+  .op .ev{background:var(--card); border:1px solid var(--evid-line); border-radius:6px; padding:7px 9px; font-size:.8rem}
+  .op .ev .lbl{color:var(--accent); font-weight:700; font-size:.74rem; display:block; margin-bottom:2px}
+
+  .local-disclaimer{color:var(--sub); font-size:.78rem; margin-top:14px; padding-top:10px; border-top:1px dashed var(--line)}
+
+  footer{margin-top:30px; padding-top:16px; border-top:1px solid var(--line); color:var(--sub); font-size:.8rem}
+  footer p{margin:0 0 8px}
+
+  bdi, .ltr{unicode-bidi:isolate}
+
+  @media (prefers-reduced-motion: no-preference){
+    details.card[open] .detail{animation:none}
+  }
 </style>
 </head>
 <body>
+<div class="banner" role="note">
+  <strong>לפני שקוראים:</strong>
+  זה מידע כללי להבנה, לא ייעוץ השקעות ולא ייעוץ מוסמך. אף אחד כאן לא מבטיח רווח, ואפשר גם
+  להפסיד. לפני כל החלטה כספית, דברו עם יועץ מוסמך.
+</div>
 
-  <div class="disclaimer" role="note">
-    המידע בדף הזה כללי, להבנה בלבד — הוא לא ייעוץ השקעות, לא ייעוץ מוסמך ולא המלצה לפעולה.
-    הדעות הן של חברי הצוות באופן אישי, לא של גוף מוסמך. יש גם סיכון הפסד, לא רק רווח.
-    לפני כל החלטה כספית — פנו ליועץ מוסמך.
+<div class="wrap">
+  <header>
+    <h1>דף חי השקעות</h1>
+    <div class="meta">עודכן לאחרונה: <time id="lastUpdated" datetime="">—</time></div>
+  </header>
+
+  <div class="howto">
+    <h2>איך קוראים את הדף</h2>
+    <ol>
+      <li>כל נושא מתחיל סגור — תקציר אחד, ולחיצה פותחת את הפירוט המלא.</li>
+      <li>הדעות שבפירוט הן דעות אישיות של אנשי הצוות, לא ייעוץ ולא עובדה — מסומנות בתגית.</li>
+      <li>אם אין לנו נתון מאומת לנושא, כתוב כאן בדיוק את זה — ולא מספר שהומצא.</li>
+    </ol>
   </div>
-
-  <h1>דף השקעות — נתונים ודעות</h1>
-  <p class="updated" id="updated-line">גרסה ראשונה — עדיין בלי נתונים חיים ובלי דעות צוות (ראו למטה למה)</p>
-  <p class="howto">כל אזור נסגר כברירת מחדל. לחצו על כותרת אזור כדי לפתוח אותו ולראות את הפירוט.</p>
 
   <main id="areas"></main>
 
   <footer>
-    <p style="font-size:.85rem;color:var(--sub);">
-      הדף בנוי לפי התוכנית של אילן (<code>T-mwsuqb0j-78bh7</code>), מפרט ה-UX של הגר וסקופ עמית.
-      המטרה: כל מספר יישלף בדפדפן שלכם בזמן אמת, עם מקור וקישור, ולעולם לא מספר שהומצא.
-    </p>
-    <div class="disclaimer">
-      המידע בדף הזה כללי, להבנה בלבד — הוא לא ייעוץ השקעות ולא המלצה לפעולה. יש גם סיכון הפסד.
-    </div>
+    <p>זה מידע כללי להבנה, לא ייעוץ השקעות ולא ייעוץ מוסמך. הדעות המוצגות הן של חברי הצוות
+      באופן אישי, לא של גוף מוסמך. יש סיכון הפסד, לא רק רווח — לפני כל החלטה כספית, פנו
+      ליועץ מוסמך.</p>
+    <p>הדף נבנה לפי תוכנית פנימית (<span class="ltr">T-mwsuqb0j-78bh7</span>). ארבעה נושאים
+      בגרסה הראשונה: ריבית, מט״ח, מדדי מניות, אינפלציה. סחורות וקריפטו לא נכללים בגרסה הזו.</p>
   </footer>
+</div>
 
 <script>
 (function(){
   "use strict";
-  // Every area today is intentionally empty: no source has been confirmed to
-  // allow a browser fetch (CORS), and no team opinions have been written yet
-  // for this version of the page. Showing "not loaded" is the honest state —
-  // never a number nobody fetched, never an opinion nobody wrote.
+
+  // Every number here must come from a verified source. Until a-source is
+  // proven reachable from a real browser (see ops/reports/investment-page-data-sources-2026-11-23.md)
+  // every area honestly shows "no data yet" rather than a fabricated figure —
+  // UX-SPEC §7: "if there is no real value, do not show a value."
   var AREAS = [
     {
       id: "interest",
       title: "ריבית",
-      plain: "ריבית = כמה עולה לקחת הלוואה, ומה מקבלים על חיסכון. ריבית בנק מרכזי משפיעה על שתיהן.",
-      candidateSource: { name: "בנק ישראל — נתוני ריבית (SDMX)", url: "https://edge.boi.org.il" }
+      plain: "ריבית = כמה עולה לקחת הלוואה, וכמה מרוויחים על חיסכון. בנק ישראל (ובבנקים מרכזיים אחרים) קובעים אותה כמה פעמים בשנה.",
+      source: null, sourceUrl: null, datum: null, fetchedAt: null,
+      opinions: []
     },
     {
       id: "fx",
-      title: "מט\"ח",
-      plain: "שער החליפין קובע כמה שקלים צריך כדי לקנות דולר או יורו.",
-      candidateSource: { name: "Frankfurter (ECB)", url: "https://www.frankfurter.app" }
+      title: "מט״ח",
+      plain: "שער החליפין מראה כמה שקלים צריך בשביל דולר או יורו אחד. הוא זז כל יום, לפי מסחר בשווקים.",
+      source: null, sourceUrl: null, datum: null, fetchedAt: null,
+      opinions: []
     },
     {
       id: "indices",
-      title: "מדדי מניות וקרנות סל",
-      plain: "מדד הוא מספר שמסכם איך קבוצת מניות גדולה מתנהגת, כמו ת\"א-35 או S&P 500.",
-      candidateSource: { name: "— טרם נמצא מקור פתוח מהדפדפן", url: "" }
+      title: "מדדי מניות",
+      plain: "מדד מניות (למשל ת״א־35 או S&P 500) מסכם בסטטיסטי אחד איך זז שוק שלם של מניות, במקום לעקוב אחרי כל חברה בנפרד.",
+      source: null, sourceUrl: null, datum: null, fetchedAt: null,
+      opinions: []
     },
     {
       id: "inflation",
       title: "אינפלציה",
-      plain: "אינפלציה היא כמה המחירים עולים בממוצע עם הזמן, ונמדדת במדד המחירים לצרכן.",
-      candidateSource: { name: "בנק ישראל — מדד המחירים לצרכן", url: "https://edge.boi.org.il" }
+      plain: "אינפלציה = כמה התייקרו בממוצע מוצרים ושירותים לאורך זמן. מודדים אותה במדד המחירים לצרכן.",
+      source: null, sourceUrl: null, datum: null, fetchedAt: null,
+      opinions: []
     }
   ];
 
   var main = document.getElementById("areas");
 
-  AREAS.forEach(function(area){
-    var card = document.createElement("div");
-    card.className = "card";
+  function fmtTime(iso){
+    if (!iso) return null;
+    try {
+      var d = new Date(iso);
+      return d.toLocaleString("he-IL", { dateStyle: "short", timeStyle: "short" });
+    } catch (e) { return iso; }
+  }
 
-    var btn = document.createElement("button");
-    btn.setAttribute("aria-expanded", "false");
-    btn.setAttribute("aria-controls", "panel-" + area.id);
-    btn.id = "btn-" + area.id;
-    btn.innerHTML =
-      '<span class="row1"><span class="title">' + area.title + '</span><span class="toggle" aria-hidden="true">+ פתחו</span></span>' +
-      '<span class="headline">אין לנו נתון לנושא הזה כרגע</span>' +
-      '<span class="plain">' + area.plain + '</span>' +
-      '<span class="meta">0 דעות צוות כרגע</span>';
+  AREAS.forEach(function (area){
+    var det = document.createElement("details");
+    det.className = "card";
+    det.id = area.id;
 
-    var panel = document.createElement("div");
-    panel.className = "panel";
-    panel.id = "panel-" + area.id;
-    panel.setAttribute("role", "region");
-    panel.setAttribute("aria-labelledby", btn.id);
-    panel.hidden = true;
+    var sum = document.createElement("summary");
+    var hasDatum = !!area.datum;
+    var metaLine = area.fetchedAt
+      ? ("עודכן: " + fmtTime(area.fetchedAt))
+      : "ממתין למקור מאומת";
+    if (area.opinions.length) metaLine += " · " + area.opinions.length + " דעות צוות";
 
-    var srcHtml = area.candidateSource.url
-      ? '<a class="src-link" href="' + area.candidateSource.url + '" target="_blank" rel="noopener noreferrer">' + area.candidateSource.name + '</a>'
-      : '<span class="src-link">' + area.candidateSource.name + '</span>';
+    sum.innerHTML =
+      '<span class="s-main">' +
+        '<span class="s-title"><span class="name">' + area.title + '</span></span>' +
+        '<div class="s-headline">' + (hasDatum ? area.datum : "אין לנו נתון לנושא הזה כרגע") + '</div>' +
+        '<div class="s-plain">' + area.plain + '</div>' +
+        '<div class="s-meta">' + metaLine + '</div>' +
+      '</span>' +
+      '<span class="s-toggle" aria-hidden="true">פתחו</span>';
+    det.appendChild(sum);
 
-    panel.innerHTML =
-      '<div class="empty">אין לנו נתון לנושא הזה כרגע. המקור המועמד: ' + srcHtml + ' — עדיין לא אושר שהוא נגיש מהדפדפן.</div>' +
-      '<div class="empty">אין עדיין דעות צוות לנושא הזה.</div>' +
-      '<p class="local-disclaimer">כשיתווספו דעות — הן יהיו דעה אישית, לא עובדה ולא ייעוץ.</p>';
+    var body = document.createElement("div");
+    body.className = "detail";
 
-    btn.addEventListener("click", function(){
-      var open = btn.getAttribute("aria-expanded") === "true";
-      // accordion: close every other panel first
-      document.querySelectorAll("#areas button").forEach(function(b){
-        if (b !== btn){
-          b.setAttribute("aria-expanded", "false");
-          document.getElementById(b.getAttribute("aria-controls")).hidden = true;
-        }
+    if (!hasDatum) {
+      var nodata = document.createElement("div");
+      nodata.className = "nodata";
+      nodata.textContent = "אין לנו עדיין נתון מאומת לנושא הזה — ברגע שיש מקור שעבר אימות מהדפדפן, הוא יוצג כאן עם המקור והזמן המדויק. לא מוצג מספר שלא אומת.";
+      body.appendChild(nodata);
+    } else {
+      var facts = document.createElement("div");
+      facts.className = "facts";
+      facts.innerHTML =
+        '<div class="row"><b>הנתון</b>' + area.datum + '</div>' +
+        '<div class="row"><b>המקור</b>' + (area.source || "—") + '</div>' +
+        (area.sourceUrl ? '<div class="row"><b>הקישור</b><a href="' + area.sourceUrl + '" target="_blank" rel="noopener noreferrer">' + (area.source || "למקור") + ' ↗</a></div>' : "") +
+        '<div class="row"><b>זמן השליפה</b><time datetime="' + (area.fetchedAt||"") + '">' + fmtTime(area.fetchedAt) + '</time></div>';
+      body.appendChild(facts);
+    }
+
+    var op = document.createElement("div");
+    op.className = "opinions";
+    var h3 = document.createElement("h3");
+    h3.textContent = "דעות הצוות";
+    op.appendChild(h3);
+    if (!area.opinions.length) {
+      var empty = document.createElement("div");
+      empty.className = "empty-opinions";
+      empty.textContent = "אין עדיין דעות צוות לנושא הזה.";
+      op.appendChild(empty);
+    } else {
+      area.opinions.forEach(function (o){
+        var card = document.createElement("div");
+        card.className = "op";
+        card.innerHTML =
+          '<div class="flag">דעה, לא עובדה · לא ייעוץ</div>' +
+          '<div class="who"><span class="n">' + o.agentName + '</span><span class="r">' + o.role + '</span></div>' +
+          '<div class="h">' + o.headline + '</div>' +
+          '<div class="rat">' + o.rationale + '</div>' +
+          '<div class="ev"><span class="lbl">ראייה</span>' + o.evidence + '</div>';
+        op.appendChild(card);
       });
-      btn.setAttribute("aria-expanded", String(!open));
-      panel.hidden = open;
-    });
+    }
+    body.appendChild(op);
 
-    card.appendChild(btn);
-    card.appendChild(panel);
-    main.appendChild(card);
+    var localDisc = document.createElement("div");
+    localDisc.className = "local-disclaimer";
+    localDisc.textContent = "הדעות שלעיל אינן ייעוץ השקעות ואינן המלצה לפעולה.";
+    body.appendChild(localDisc);
+
+    det.appendChild(body);
+    main.appendChild(det);
   });
 
-  document.getElementById("updated-line").textContent =
-    "נבנה " + new Date().toLocaleString("he-IL", { timeZone: "Asia/Jerusalem" });
+  // one open at a time
+  var all = Array.prototype.slice.call(document.querySelectorAll("details.card"));
+  all.forEach(function (d){
+    d.addEventListener("toggle", function(){
+      if (d.open) {
+        all.forEach(function (other){ if (other !== d) other.open = false; });
+      }
+    });
+  });
+
+  // deep link: #fx opens that area
+  var hashId = (location.hash || "").replace("#", "");
+  if (hashId) {
+    var target = document.getElementById(hashId);
+    if (target && target.tagName === "DETAILS") target.open = true;
+  }
+
+  var lu = document.getElementById("lastUpdated");
+  var now = new Date();
+  lu.setAttribute("datetime", now.toISOString());
+  lu.textContent = now.toLocaleString("he-IL", { dateStyle: "short", timeStyle: "short" });
 })();
 </script>
 </body>
