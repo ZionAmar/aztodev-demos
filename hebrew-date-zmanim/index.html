@@ -1,0 +1,364 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#14213d">
+<title>ממיר תאריכים וזמני היום</title>
+<style>
+:root{--bg:#f6f4ee;--card:#fff;--ink:#14213d;--mute:#5b6478;--acc:#b8860b;--acc2:#14213d;--line:#e3dfd2;--ok:#1b7a4b}
+@media (prefers-color-scheme:dark){:root{--bg:#0f1524;--card:#18203a;--ink:#f1eee4;--mute:#a4abc0;--acc:#e0b340;--acc2:#e0b340;--line:#2a3354;--ok:#5bd196}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",Arial,sans-serif;line-height:1.5}
+.wrap{max-width:640px;margin:0 auto;padding:16px}
+header{text-align:center;padding:12px 0 4px}
+h1{font-size:1.4rem;margin:0}
+.today{margin:10px 0 0;padding:14px;border-radius:14px;background:var(--acc2);color:#fff;text-align:center}
+@media (prefers-color-scheme:dark){.today{color:#14213d}}
+.today b{display:block;font-size:1.5rem}
+.today small{opacity:.85}
+nav{display:flex;gap:6px;margin:16px 0}
+nav button{flex:1;padding:12px 8px;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:12px;font:inherit;font-weight:600;cursor:pointer}
+nav button[aria-selected=true]{background:var(--acc);color:#14213d;border-color:var(--acc)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;margin-bottom:14px}
+.card h2{margin:0 0 10px;font-size:1.05rem}
+label{display:block;font-size:.85rem;color:var(--mute);margin:8px 0 4px}
+input,select{width:100%;padding:11px;font:inherit;font-size:1rem;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink)}
+.row{display:flex;gap:8px}.row>*{flex:1}
+.check{display:flex;align-items:center;gap:8px;margin-top:10px;font-size:.9rem}
+.check input{width:auto}
+.out{margin-top:12px;padding:12px;border-radius:10px;background:var(--bg);border:1px dashed var(--line);min-height:3em}
+.out .big{font-size:1.25rem;font-weight:700}
+.out .tag{display:inline-block;margin:6px 4px 0 0;padding:2px 10px;border-radius:99px;background:var(--acc);color:#14213d;font-size:.8rem;font-weight:600}
+.err{color:#c0392b;font-weight:600}
+table{width:100%;border-collapse:collapse}
+td{padding:9px 4px;border-bottom:1px solid var(--line)}
+td.t{text-align:left;font-variant-numeric:tabular-nums;font-weight:700;direction:ltr}
+tr.hi td{color:var(--ok);font-weight:700}
+.note{font-size:.78rem;color:var(--mute);margin-top:10px}
+button.act{margin-top:10px;padding:10px 14px;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--ink);font:inherit;cursor:pointer}
+[hidden]{display:none!important}
+:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header><h1>📅 ממיר תאריכים וזמני היום</h1></header>
+<div class="today" id="today" aria-live="polite"></div>
+
+<nav role="tablist" aria-label="מצבים">
+  <button role="tab" aria-selected="true" data-tab="g2h" id="tab-g2h">לועזי ← עברי</button>
+  <button role="tab" aria-selected="false" data-tab="h2g" id="tab-h2g">עברי ← לועזי</button>
+  <button role="tab" aria-selected="false" data-tab="zm" id="tab-zm">זמני היום</button>
+</nav>
+
+<section id="g2h" class="card" role="tabpanel" aria-labelledby="tab-g2h">
+  <h2>מתאריך לועזי לתאריך עברי</h2>
+  <label for="gdate">תאריך לועזי</label>
+  <input type="date" id="gdate">
+  <label class="check"><input type="checkbox" id="afterSunset"> אחרי השקיעה (היום העברי מתחלף בערב)</label>
+  <div class="out" id="g2hOut" aria-live="polite"></div>
+</section>
+
+<section id="h2g" class="card" role="tabpanel" aria-labelledby="tab-h2g" hidden>
+  <h2>מתאריך עברי לתאריך לועזי</h2>
+  <div class="row">
+    <div><label for="hday">יום</label><select id="hday"></select></div>
+    <div><label for="hmonth">חודש</label><select id="hmonth"></select></div>
+    <div><label for="hyear">שנה</label><input type="number" id="hyear" min="3761" max="9999" inputmode="numeric"></div>
+  </div>
+  <div class="out" id="h2gOut" aria-live="polite"></div>
+</section>
+
+<section id="zm" role="tabpanel" aria-labelledby="tab-zm" hidden>
+  <div class="card">
+    <h2>זמני היום</h2>
+    <div class="row">
+      <div><label for="city">מקום</label><select id="city"></select></div>
+      <div><label for="zdate">תאריך</label><input type="date" id="zdate"></div>
+    </div>
+    <button class="act" id="geo" type="button">📍 המיקום שלי</button>
+    <div class="out" id="zmOut" aria-live="polite"></div>
+    <p class="note">החישוב אסטרונומי, בקירוב של דקה–שתיים, בלי התחשבות בגובה. לשימוש הלכתי למעשה — יש לבדוק בלוח מקומי.</p>
+  </div>
+</section>
+</div>
+
+<script>
+"use strict";
+/* ---------- Hebrew calendar core ---------- */
+var HEB_EPOCH = -1373427; // fixed day (R.D.) of 1 Tishri, year 1
+function isLeap(y){ return (7*y+1) % 19 < 7; }
+function elapsedDays(y){
+  var months = Math.floor((235*y-234)/19);
+  var parts = 12084 + 13753*months;
+  var day = months*29 + Math.floor(parts/25920);
+  if ((3*(day+1)) % 7 < 3) day++;
+  return day;
+}
+function newYearRD(y){
+  var a = elapsedDays(y-1), b = elapsedDays(y), c = elapsedDays(y+1), d = 0;
+  if (c - b === 356) d = 2; else if (b - a === 382) d = 1;
+  return HEB_EPOCH + b + d;
+}
+function yearLength(y){ return newYearRD(y+1) - newYearRD(y); }
+// month keys in calendar order starting Tishri
+function monthsOf(y){
+  var m = ["tishri","cheshvan","kislev","tevet","shevat"];
+  if (isLeap(y)) m.push("adar1");
+  m.push("adar","nisan","iyar","sivan","tammuz","av","elul");
+  return m;
+}
+function monthLen(y, key){
+  var len = yearLength(y) % 10; // 3 deficient, 4 regular, 5 complete
+  switch(key){
+    case "cheshvan": return len === 5 ? 30 : 29;
+    case "kislev":   return len === 3 ? 29 : 30;
+    case "tevet": case "iyar": case "tammuz": case "elul": case "adar": return 29;
+    case "adar1": return 30;
+    default: return 30; // tishri shevat nisan sivan av
+  }
+}
+function monthName(y, key){
+  var n = {tishri:"תשרי",cheshvan:"חשוון",kislev:"כסלו",tevet:"טבת",shevat:"שבט",adar1:"אדר א׳",adar:isLeap(y)?"אדר ב׳":"אדר",nisan:"ניסן",iyar:"אייר",sivan:"סיוון",tammuz:"תמוז",av:"אב",elul:"אלול"};
+  return n[key];
+}
+function gregToRD(y,m,d){ var dt = new Date(0); dt.setUTCFullYear(y, m-1, d); return Math.floor(dt.getTime()/86400000) + 719163; }
+function rdToGreg(rd){ var dt = new Date((rd-719163)*86400000); return {y:dt.getUTCFullYear(), m:dt.getUTCMonth()+1, d:dt.getUTCDate()}; }
+function rdToHebrew(rd){
+  var y = Math.floor((rd - HEB_EPOCH)/365.24682) + 1;
+  while (newYearRD(y+1) <= rd) y++;
+  while (newYearRD(y) > rd) y--;
+  var day = rd - newYearRD(y) + 1, ms = monthsOf(y);
+  for (var i=0;i<ms.length;i++){
+    var l = monthLen(y, ms[i]);
+    if (day <= l) return {y:y, month:ms[i], d:day};
+    day -= l;
+  }
+  throw new Error("hebrew date out of range");
+}
+function hebrewToRD(y, key, d){
+  var ms = monthsOf(y), idx = ms.indexOf(key);
+  if (idx < 0) throw new Error("no such month in this year");
+  if (d < 1 || d > monthLen(y, key)) throw new Error("no such day in this month");
+  var rd = newYearRD(y) + d - 1;
+  for (var i=0;i<idx;i++) rd += monthLen(y, ms[i]);
+  return rd;
+}
+/* ---------- gematria ---------- */
+function gematria(n, withThousands){
+  var th = Math.floor(n/1000), r = n % 1000, s = "";
+  var H = ["","ק","ר","ש","ת"], T = ["","י","כ","ל","מ","נ","ס","ע","פ","צ"], O = ["","א","ב","ג","ד","ה","ו","ז","ח","ט"];
+  while (r >= 400){ s += "ת"; r -= 400; }
+  s += H[Math.floor(r/100)]; r %= 100;
+  if (r === 15) s += "טו"; else if (r === 16) s += "טז"; else s += T[Math.floor(r/10)] + O[r%10];
+  if (s.length === 1) s += "׳";
+  else s = s.slice(0,-1) + "״" + s.slice(-1);
+  if (withThousands && th) s = gematria(th,false) + " " + s;
+  return s;
+}
+function hebYearStr(y){ return gematria(y % 1000, false); }
+var WEEKDAYS = ["ראשון","שני","שלישי","רביעי","חמישי","שישי","שבת"];
+function weekdayOf(rd){ return ((rd % 7) + 7) % 7; } // RD 0 is a Sunday
+var HEB_MONTH_TXT = null;
+function holidays(h){
+  var out = [], y = h.y, m = h.month, d = h.d;
+  var leap = isLeap(y);
+  if (d === 1 && m !== "tishri") out.push("ראש חודש");
+  if (d === 30) out.push("ראש חודש");
+  if (m === "tishri"){ if (d<=2) out.push("ראש השנה"); if (d===3) out.push("צום גדליה"); if (d===10) out.push("יום כיפור"); if (d>=15&&d<=21) out.push("סוכות"); if (d===22) out.push("שמיני עצרת / שמחת תורה"); }
+  if (m==="kislev" && d>=25) out.push("חנוכה");
+  if (m==="tevet" && d <= (monthLen(y,"kislev")===29 ? 3 : 2)) out.push("חנוכה");
+  if (m==="tevet" && d===10) out.push("עשרה בטבת");
+  if (m==="shevat" && d===15) out.push("ט״ו בשבט");
+  if (m==="adar1" && d===14 && leap) out.push("פורים קטן");
+  if (m==="adar" && d===13) out.push("תענית אסתר");
+  if (m==="adar" && d===14) out.push("פורים");
+  if (m==="adar" && d===15) out.push("שושן פורים");
+  if (m==="nisan" && d>=15 && d<=21) out.push("פסח");
+  if (m==="iyar" && d===18) out.push("ל״ג בעומר");
+  if (m==="sivan" && d===6) out.push("שבועות");
+  if (m==="tammuz" && d===17) out.push("י״ז בתמוז");
+  if (m==="av" && d===9) out.push("תשעה באב");
+  if (m==="av" && d===15) out.push("ט״ו באב");
+  // dedupe
+  return out.filter(function(v,i){return out.indexOf(v)===i;});
+}
+function describeHebrew(h){
+  return gematria(h.d,false) + " " + monthName(h.y,h.month) + " " + hebYearStr(h.y);
+}
+/* ---------- Zmanim (NOAA solar position) ---------- */
+function rad(x){return x*Math.PI/180;} function deg(x){return x*180/Math.PI;}
+function solarParams(jc){
+  var L0 = (280.46646 + jc*(36000.76983 + jc*0.0003032)) % 360;
+  var M = 357.52911 + jc*(35999.05029 - 0.0001537*jc);
+  var e = 0.016708634 - jc*(0.000042037 + 0.0000001267*jc);
+  var C = Math.sin(rad(M))*(1.914602 - jc*(0.004817+0.000014*jc)) + Math.sin(rad(2*M))*(0.019993-0.000101*jc) + Math.sin(rad(3*M))*0.000289;
+  var tl = L0 + C, om = 125.04 - 1934.136*jc;
+  var app = tl - 0.00569 - 0.00478*Math.sin(rad(om));
+  var ob0 = 23 + (26 + (21.448 - jc*(46.815 + jc*(0.00059 - jc*0.001813)))/60)/60;
+  var ob = ob0 + 0.00256*Math.cos(rad(om));
+  var decl = deg(Math.asin(Math.sin(rad(ob))*Math.sin(rad(app))));
+  var yy = Math.pow(Math.tan(rad(ob/2)),2);
+  var eq = 4*deg(yy*Math.sin(2*rad(L0)) - 2*e*Math.sin(rad(M)) + 4*e*yy*Math.sin(rad(M))*Math.cos(2*rad(L0)) - 0.5*yy*yy*Math.sin(4*rad(L0)) - 1.25*e*e*Math.sin(2*rad(M)));
+  return {decl:decl, eq:eq};
+}
+// returns instants (ms epoch UTC) for civil date y-m-d at the place; null for polar no-event
+function sunTimes(y, m, d, lat, lon){
+  var day0 = Date.UTC(y, m-1, d);
+  var jd = day0/86400000 + 2440587.5 + 0.5 - lon/360;
+  var p = solarParams((jd - 2451545)/36525);
+  var noonMin = 720 - 4*lon - p.eq;
+  function at(zen, rising){
+    var c = (Math.cos(rad(zen)) / (Math.cos(rad(lat))*Math.cos(rad(p.decl)))) - Math.tan(rad(lat))*Math.tan(rad(p.decl));
+    if (c < -1 || c > 1) return null;
+    var ha = deg(Math.acos(c));
+    return day0 + (noonMin + (rising ? -4*ha : 4*ha))*60000;
+  }
+  return {noon: day0 + noonMin*60000,
+    sunrise: at(90.833,true), sunset: at(90.833,false),
+    dawn: at(106.1,true), misheyakir: at(101.5,true), tzeit: at(98.5,false)};
+}
+function zmanimList(y, m, d, lat, lon, candleMin){
+  var s = sunTimes(y,m,d,lat,lon);
+  if (!s.sunrise || !s.sunset) return null;
+  var hr = (s.sunset - s.sunrise)/12, mga = (s.sunset - s.sunrise + 144*60000)/12;
+  var sr = s.sunrise, mgaStart = sr - 72*60000;
+  var list = [
+    ["עלות השחר (16.1°)", s.dawn],
+    ["משיכיר (11.5°)", s.misheyakir],
+    ["הנץ החמה", sr],
+    ["סוף זמן קריאת שמע — מג״א", mgaStart + 3*mga],
+    ["סוף זמן קריאת שמע — גר״א", sr + 3*hr],
+    ["סוף זמן תפילה — גר״א", sr + 4*hr],
+    ["חצות היום", s.sunrise + 6*hr],
+    ["מנחה גדולה", sr + 6.5*hr],
+    ["פלג המנחה", sr + 10.75*hr],
+    ["שקיעה", s.sunset],
+    ["צאת הכוכבים (8.5°)", s.tzeit]
+  ];
+  var out = list.map(function(x){return {name:x[0], t:x[1]};});
+  if (candleMin) out.splice(9,0,{name:"הדלקת נרות (ערב שבת/חג: "+candleMin+" דק׳ לפני)", t:s.sunset - candleMin*60000, candle:true});
+  return out;
+}
+var CITIES = [
+  {n:"ירושלים",lat:31.7683,lon:35.2137,tz:"Asia/Jerusalem",c:40},
+  {n:"תל אביב",lat:32.0853,lon:34.7818,tz:"Asia/Jerusalem",c:20},
+  {n:"חיפה",lat:32.794,lon:34.9896,tz:"Asia/Jerusalem",c:30},
+  {n:"טבריה",lat:32.7922,lon:35.5312,tz:"Asia/Jerusalem",c:20},
+  {n:"צפת",lat:32.9646,lon:35.496,tz:"Asia/Jerusalem",c:20},
+  {n:"באר שבע",lat:31.253,lon:34.7915,tz:"Asia/Jerusalem",c:20},
+  {n:"אילת",lat:29.5577,lon:34.9519,tz:"Asia/Jerusalem",c:20},
+  {n:"בני ברק",lat:32.0834,lon:34.8326,tz:"Asia/Jerusalem",c:20},
+  {n:"ניו יורק",lat:40.7128,lon:-74.006,tz:"America/New_York",c:18},
+  {n:"לונדון",lat:51.5074,lon:-0.1278,tz:"Europe/London",c:18},
+  {n:"פריז",lat:48.8566,lon:2.3522,tz:"Europe/Paris",c:18},
+  {n:"לוס אנג׳לס",lat:34.0522,lon:-118.2437,tz:"America/Los_Angeles",c:18},
+  {n:"מוסקבה",lat:55.7558,lon:37.6173,tz:"Europe/Moscow",c:18}
+];
+if (typeof module !== "undefined") module.exports = {isLeap,newYearRD,yearLength,monthsOf,monthLen,monthName,gregToRD,rdToGreg,rdToHebrew,hebrewToRD,gematria,weekdayOf,holidays,describeHebrew,sunTimes,zmanimList,CITIES};
+
+/* ---------- UI ---------- */
+if (typeof document !== "undefined") (function(){
+  var $ = function(id){return document.getElementById(id);};
+  function pad(n){return (n<10?"0":"")+n;}
+  function isoOf(y,m,d){return y+"-"+pad(m)+"-"+pad(d);}
+  function parseISO(s){ var p = /^(\d{4})-(\d{2})-(\d{2})$/.exec(s||""); return p ? {y:+p[1],m:+p[2],d:+p[3]} : null; }
+  function localToday(){ var n = new Date(); return {y:n.getFullYear(), m:n.getMonth()+1, d:n.getDate()}; }
+  function longGreg(g){ return new Intl.DateTimeFormat("he-IL",{day:"numeric",month:"long",year:"numeric",timeZone:"UTC"}).format(Date.UTC(g.y,g.m-1,g.d)); }
+  function hebBlock(rd, extra){
+    var h = rdToHebrew(rd), g = rdToGreg(rd);
+    var html = '<div class="big">'+describeHebrew(h)+'</div>'
+      + '<div>יום '+WEEKDAYS[weekdayOf(rd)]+', '+h.d+' ב'+monthName(h.y,h.month)+' '+h.y+'</div>'
+      + '<div>'+longGreg(g)+'</div>';
+    var hs = holidays(h); if (weekdayOf(rd)===6) hs.unshift("שבת");
+    hs.forEach(function(t){ html += '<span class="tag">'+t+'</span>'; });
+    return (extra||"") + html;
+  }
+  // today banner
+  var t = localToday(), trd = gregToRD(t.y,t.m,t.d), th = rdToHebrew(trd);
+  $("today").innerHTML = '<small>היום</small><b>'+describeHebrew(th)+'</b><small>יום '+WEEKDAYS[weekdayOf(trd)]+' · '+longGreg(t)+'</small>';
+
+  // tabs
+  var tabs = document.querySelectorAll("nav button");
+  function show(id){
+    tabs.forEach(function(b){ b.setAttribute("aria-selected", b.dataset.tab===id ? "true":"false"); });
+    ["g2h","h2g","zm"].forEach(function(s){ $(s).hidden = s!==id; });
+  }
+  tabs.forEach(function(b){ b.addEventListener("click", function(){ show(b.dataset.tab); }); });
+
+  // Gregorian -> Hebrew
+  $("gdate").value = isoOf(t.y,t.m,t.d);
+  function g2h(){
+    var p = parseISO($("gdate").value), out = $("g2hOut");
+    if (!p){ out.innerHTML = '<span class="err">בחרו תאריך תקין</span>'; return; }
+    if (p.y < 1000){ out.innerHTML = '<span class="err">הממיר תומך משנת 1000 ואילך</span>'; return; }
+    var rd = gregToRD(p.y,p.m,p.d) + ($("afterSunset").checked ? 1 : 0);
+    out.innerHTML = hebBlock(rd, $("afterSunset").checked ? '<div class="note">אחרי השקיעה — נספר כיום העברי הבא</div>' : "");
+  }
+  $("gdate").addEventListener("input", g2h); $("afterSunset").addEventListener("change", g2h); g2h();
+
+  // Hebrew -> Gregorian
+  var hd=$("hday"), hm=$("hmonth"), hy=$("hyear");
+  hy.value = th.y;
+  function fillMonths(keep){
+    var y = +hy.value; if (!(y>=3761 && y<=9999)) return;
+    var ms = monthsOf(y); hm.innerHTML = "";
+    ms.forEach(function(k){ var o=document.createElement("option"); o.value=k; o.textContent=monthName(y,k); hm.appendChild(o); });
+    hm.value = ms.indexOf(keep) >= 0 ? keep : (keep==="adar1"||keep==="adar" ? "adar" : ms[0]);
+    fillDays();
+  }
+  function fillDays(){
+    var y=+hy.value, k=hm.value; if(!k) return; var n = monthLen(y,k), cur = +hd.value || 1;
+    hd.innerHTML = "";
+    for (var i=1;i<=n;i++){ var o=document.createElement("option"); o.value=i; o.textContent=gematria(i,false)+" ("+i+")"; hd.appendChild(o); }
+    hd.value = Math.min(cur, n);
+  }
+  function h2g(){
+    var out=$("h2gOut"), y=+hy.value;
+    if (!(y>=3761 && y<=9999)){ out.innerHTML='<span class="err">שנה עברית בין 3761 ל-9999</span>'; return; }
+    try{
+      var rd = hebrewToRD(y, hm.value, +hd.value), g = rdToGreg(rd);
+      out.innerHTML = '<div class="big">'+longGreg(g)+'</div><div>יום '+WEEKDAYS[weekdayOf(rd)]+' · '+isoOf(g.y,g.m,g.d)+'</div>'
+        + holidays(rdToHebrew(rd)).map(function(x){return '<span class="tag">'+x+'</span>';}).join("")
+        + '<div class="note">היום העברי מתחיל בשקיעה של הערב הקודם.</div>';
+    }catch(e){ out.innerHTML='<span class="err">תאריך לא קיים</span>'; }
+  }
+  hy.addEventListener("change", function(){ fillMonths(hm.value); h2g(); });
+  hm.addEventListener("change", function(){ fillDays(); h2g(); });
+  hd.addEventListener("change", h2g);
+  fillMonths(th.month); hd.value = th.d; h2g();
+
+  // Zmanim
+  var city=$("city"), zd=$("zdate"), place = null;
+  CITIES.forEach(function(c,i){ var o=document.createElement("option"); o.value=i; o.textContent=c.n; city.appendChild(o); });
+  zd.value = isoOf(t.y,t.m,t.d);
+  function zm(){
+    var out=$("zmOut"), p=parseISO(zd.value);
+    if(!p){ out.innerHTML='<span class="err">בחרו תאריך תקין</span>'; return; }
+    var c = place || CITIES[+city.value];
+    var list = zmanimList(p.y,p.m,p.d,c.lat,c.lon,c.c);
+    if(!list){ out.innerHTML='<span class="err">במקום הזה אין זריחה או שקיעה בתאריך הזה</span>'; return; }
+    var fmt = new Intl.DateTimeFormat("he-IL",{hour:"2-digit",minute:"2-digit",second:"2-digit",hour12:false,timeZone:c.tz});
+    var rd = gregToRD(p.y,p.m,p.d);
+    var rows = list.map(function(z){
+      return z.t==null ? '<tr><td>'+z.name+'</td><td class="t">—</td></tr>'
+        : '<tr'+(z.candle?' class="hi"':'')+'><td>'+z.name+'</td><td class="t">'+fmt.format(z.t)+'</td></tr>';
+    }).join("");
+    out.innerHTML = '<div><b>'+c.n+'</b> · '+describeHebrew(rdToHebrew(rd))+' · יום '+WEEKDAYS[weekdayOf(rd)]+'</div><table>'+rows+'</table>';
+  }
+  city.addEventListener("change", function(){ place=null; zm(); }); zd.addEventListener("input", zm);
+  $("geo").addEventListener("click", function(){
+    var out=$("zmOut");
+    if(!navigator.geolocation){ out.innerHTML='<span class="err">הדפדפן לא תומך במיקום</span>'; return; }
+    out.textContent = "מאתר מיקום…";
+    navigator.geolocation.getCurrentPosition(function(pos){
+      place = {n:"המיקום שלי",lat:pos.coords.latitude,lon:pos.coords.longitude,tz:Intl.DateTimeFormat().resolvedOptions().timeZone,c:18};
+      zm();
+    }, function(){ out.innerHTML='<span class="err">לא התקבל אישור מיקום — בחרו עיר מהרשימה</span>'; }, {timeout:10000});
+  });
+  zm();
+})();
+</script>
+</body>
+</html>
